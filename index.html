@@ -65,6 +65,7 @@
         h4 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
         p { color: var(--text-secondary); }
 
+        /* HEADER CONTROLS MIGRATED */
         .header-controls {
             display: flex;
             gap: 8px;
@@ -112,6 +113,7 @@
             box-shadow: var(--shadow-lg);
         }
 
+        /* AUTH PAGE - FIXED */
         .auth-page {
             position: fixed;
             top: 0;
@@ -186,15 +188,18 @@
             margin-bottom: 4px;
         }
 
+        /* MAIN WRAPPER */
         .main-wrapper {
             display: flex;
             min-height: 100vh;
         }
 
         .main-wrapper.hidden {
+        
             display: none !important;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 280px;
             background: var(--bg-secondary);
@@ -204,10 +209,11 @@
             overflow-y: auto;
             position: fixed;
             height: 100vh;
-            right: 0;
+            right: 0; /* في الـ RTL يكون على اليمين */
             left: auto;
+            z-index: 999;
             border-left: 1px solid var(--border);
-            z-index: 100;
+            transition: all 0.3s ease;
         }
 
         .logo-section {
@@ -258,7 +264,6 @@
         }
 
         .nav-item {
-            display: block;
             padding: 12px 16px;
             color: var(--text-secondary);
             text-decoration: none;
@@ -268,7 +273,7 @@
             font-size: 0.95rem;
             border-radius: 10px;
             margin-bottom: 8px;
-            border-right: 3px solid transparent;
+            border-left: 3px solid transparent;
         }
 
         .nav-item:hover {
@@ -279,31 +284,24 @@
         .nav-item.active {
             background: rgba(212, 165, 116, 0.1);
             color: var(--accent);
-            border-right-color: var(--accent);
+            border-left-color: var(--accent);
             font-weight: 600;
         }
 
-        .content-wrapper {
-            margin-right: 280px;
+       .content-wrapper {
+            margin-right: 280px; /* إزاحة من اليمين بناءً على موقع السيادبار */
             margin-left: 0;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
+        /* تعديل القيم عند قلب النظام للغة الإنجليزية LTR */
         html[dir="ltr"] .sidebar {
             left: 0;
             right: auto;
             border-right: 1px solid var(--border);
             border-left: none;
-        }
-        html[dir="ltr"] .nav-item {
-            border-left: 3px solid transparent;
-            border-right: none;
-        }
-        html[dir="ltr"] .nav-item.active {
-            border-left-color: var(--accent);
-            border-right-color: transparent;
         }
         html[dir="ltr"] .content-wrapper {
             margin-left: 280px;
@@ -369,6 +367,7 @@
             padding: 40px;
         }
 
+        /* PAGES */
         .page {
             display: none;
         }
@@ -383,6 +382,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* BUTTONS */
         .btn {
             padding: 12px 24px;
             border: none;
@@ -447,6 +447,7 @@
             background: #1f4a3c;
         }
 
+        /* STATS GRID */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -498,6 +499,7 @@
             margin-bottom: 8px;
         }
 
+        /* CARD */
         .card {
             background: var(--bg-primary);
             border: 1px solid var(--border);
@@ -522,6 +524,7 @@
             font-weight: 700;
         }
 
+        /* FORM */
         .form-group {
             margin-bottom: 24px;
         }
@@ -561,6 +564,7 @@
             background: var(--bg-primary);
         }
 
+        /* TABLE */
         .table-wrapper {
             overflow-x: auto;
         }
@@ -596,6 +600,7 @@
             background: var(--bg-secondary);
         }
 
+        /* BADGE */
         .badge {
             display: inline-block;
             padding: 6px 12px;
@@ -606,12 +611,32 @@
             letter-spacing: 0.05em;
         }
 
-        .badge-success { background: rgba(45, 92, 78, 0.15); color: var(--success); }
-        .badge-warning { background: rgba(184, 134, 11, 0.15); color: var(--warning); }
-        .badge-danger { background: rgba(168, 60, 60, 0.15); color: var(--danger); }
-        .badge-accent { background: rgba(212, 165, 116, 0.15); color: var(--accent); }
-        .badge-info { background: rgba(13, 93, 93, 0.15); color: var(--primary-light); }
+        .badge-success {
+            background: rgba(45, 92, 78, 0.15);
+            color: var(--success);
+        }
 
+        .badge-warning {
+            background: rgba(184, 134, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(168, 60, 60, 0.15);
+            color: var(--danger);
+        }
+
+        .badge-accent {
+            background: rgba(212, 165, 116, 0.15);
+            color: var(--accent);
+        }
+
+        .badge-info {
+            background: rgba(13, 93, 93, 0.15);
+            color: var(--primary-light);
+        }
+
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -653,7 +678,9 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .modal-header h2 { margin: 0; }
+        .modal-header h2 {
+            margin: 0;
+        }
 
         .modal-close {
             background: none;
@@ -675,6 +702,7 @@
             color: var(--danger);
         }
 
+        /* SEARCH & FILTERS */
         .search-bar {
             display: flex;
             gap: 12px;
@@ -700,6 +728,7 @@
             box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
         }
 
+        /* TOAST */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -715,9 +744,15 @@
             max-width: 300px;
         }
 
-        .toast.warning { background: var(--warning); }
-        .toast.error { background: var(--danger); }
+        .toast.warning {
+            background: var(--warning);
+        }
 
+        .toast.error {
+            background: var(--danger);
+        }
+
+        /* QUEUE ITEMS */
         .queue-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -753,9 +788,18 @@
             margin-bottom: 8px;
         }
 
-        .queue-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
-        .queue-doctor { font-size: 0.8rem; color: var(--text-tertiary); }
+        .queue-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
 
+        .queue-doctor {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* PRESCRIPTION */
         .prescription-header {
             text-align: center;
             margin-bottom: 2rem;
@@ -763,18 +807,27 @@
             border-bottom: 2px solid var(--primary);
         }
 
-        .prescription-section { margin-bottom: 1.75rem; }
-        .prescription-section-title { font-weight: 700; color: var(--primary); margin-bottom: 0.75rem; font-size: 0.95rem; }
+        .prescription-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .prescription-section-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
 
         .prescription-item {
             padding: 0.75rem;
             background: var(--bg-secondary);
             border-radius: 8px;
             margin-bottom: 0.5rem;
-            border-right: 3px solid var(--primary);
-            padding-right: 1rem;
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
         }
 
+        /* TEMPLATE BUTTONS */
         .template-btn {
             padding: 0.75rem 1.25rem;
             background: var(--bg-secondary);
@@ -794,6 +847,7 @@
             border-color: var(--primary);
         }
 
+        /* PHONE INPUT */
         .phone-input-wrapper {
             display: flex;
             align-items: center;
@@ -806,7 +860,7 @@
         .phone-prefix {
             padding: 0.875rem 1rem;
             background: var(--bg-secondary);
-            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
             font-weight: 600;
             color: var(--text-secondary);
             white-space: nowrap;
@@ -821,8 +875,11 @@
             background: transparent;
         }
 
-        .phone-input-wrapper input:focus { outline: none; }
+        .phone-input-wrapper input:focus {
+            outline: none;
+        }
 
+        /* WHATSAPP ICON */
         .whatsapp-btn {
             background: none;
             border: none;
@@ -833,8 +890,11 @@
             transition: all 0.3s ease;
         }
 
-        .whatsapp-btn:hover { transform: scale(1.2); }
+        .whatsapp-btn:hover {
+            transform: scale(1.2);
+        }
 
+        /* SYNC INDICATOR IN SIDEBAR */
         .sync-indicator {
             display: flex;
             align-items: center;
@@ -849,12 +909,32 @@
             margin: 0 16px 12px;
         }
 
-        .sync-indicator.online { border-color: var(--success); color: var(--success); }
-        .sync-indicator.offline { border-color: var(--warning); color: var(--warning); }
-        .sync-dot { width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s infinite; }
-        .sync-indicator.online .sync-dot { background: var(--success); }
-        .sync-indicator.offline .sync-dot { background: var(--warning); }
+        .sync-indicator.online {
+            border-color: var(--success);
+            color: var(--success);
+        }
 
+        .sync-indicator.offline {
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .sync-indicator.online .sync-dot {
+            background: var(--success);
+        }
+
+        .sync-indicator.offline .sync-dot {
+            background: var(--warning);
+        }
+
+        /* RESPONSIVE UPDATED */
         @media (max-width: 1024px) {
             .sidebar { width: 240px; }
             html[dir="rtl"] .content-wrapper { margin-right: 240px; margin-left: 0; }
@@ -867,7 +947,7 @@
             .sidebar {
                 width: 100%;
                 height: auto;
-                border-left: none;
+                border-right: none;
                 border-bottom: 1px solid var(--border);
                 flex-direction: row;
                 overflow-x: auto;
@@ -875,21 +955,36 @@
                 padding: 12px 0;
                 position: static;
             }
-            .content-wrapper { margin-right: 0; }
+            .content-wrapper { margin-left: 0; }
             .logo-section { padding: 0 16px; margin-bottom: 0; border-bottom: none; }
-            .nav-section { padding: 0; margin-bottom: 0; display: flex; }
-            .nav-item { white-space: nowrap; margin-bottom: 0; margin-left: 8px; }
+            .nav-section { padding: 0; margin-bottom: 0; }
+            .nav-item { white-space: nowrap; }
             .main-content { padding: 20px; }
             .stats-grid { grid-template-columns: 1fr; }
             .modal-content { padding: 24px; }
             .card { padding: 20px; }
         }
 
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
 
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* DOCTOR CARD */
         .doctor-card {
             background: var(--bg-primary);
             border: 1px solid var(--border);
@@ -900,11 +995,31 @@
             cursor: pointer;
         }
 
-        .doctor-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); }
-        .doctor-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
-        .doctor-specialty { color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 8px; }
-        .doctor-rating { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+        .doctor-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
 
+        .doctor-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .doctor-specialty {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .doctor-rating {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* CALENDAR */
         .calendar {
             background: var(--bg-primary);
             border: 1px solid var(--border);
@@ -912,24 +1027,105 @@
             padding: 24px;
             margin-bottom: 32px;
         }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .calendar-nav { display: flex; gap: 12px; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
-        .calendar-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 10px; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all 0.3s ease; }
-        .calendar-day.disabled { color: var(--text-tertiary); cursor: not-allowed; background: transparent; }
-        .calendar-day.available:hover { border-color: var(--accent); background: rgba(212, 165, 116, 0.1); }
-        .calendar-day.selected { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; }
-        .calendar-day.booked { background: var(--bg-secondary); color: var(--text-tertiary); cursor: not-allowed; }
 
-        .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
-        .time-slot { padding: 12px; border: 1px solid var(--border); border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.3s ease; font-weight: 600; font-size: 0.9rem; background: var(--bg-primary); }
-        .time-slot.available:hover { border-color: var(--accent); background: rgba(212, 165, 116, 0.1); }
-        .time-slot.selected { background: var(--accent); color: white; border-color: var(--accent); }
-        .time-slot.booked { background: var(--bg-secondary); color: var(--text-tertiary); cursor: not-allowed; }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day.disabled {
+            color: var(--text-tertiary);
+            cursor: not-allowed;
+        }
+
+        .calendar-day.available:hover {
+            border-color: var(--accent);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .calendar-day.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .calendar-day.booked {
+            background: var(--bg-secondary);
+            color: var(--text-tertiary);
+            cursor: not-allowed;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .time-slot {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .time-slot.available:hover {
+            border-color: var(--accent);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .time-slot.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .time-slot.booked {
+            background: var(--bg-secondary);
+            color: var(--text-tertiary);
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
+    <!-- HEADER CONTROLS -->
+  
 
+    
+
+  
+    <!-- AUTH PAGE -->
     <div id="authPage" class="auth-page">
         <div class="auth-box">
             <div class="logo-icon">🏥</div>
@@ -950,12 +1146,16 @@
                     <label>كلمة المرور</label>
                     <input type="password" id="password" value="123456" required>
                 </div>
-                <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+                <button type="submit" class="btn btn-primary">
+                    تسجيل الدخول
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- MAIN APP -->
     <div class="main-wrapper hidden" id="mainApp">
+        <!-- SIDEBAR -->
         <div class="sidebar">
             <div class="logo-section" style="margin-bottom: 20px; padding-bottom: 20px;">
                 <div class="logo-icon">🏥</div>
@@ -997,11 +1197,15 @@
             </div>
 
             <div class="nav-section">
-                <button class="btn btn-secondary btn-small" onclick="logout()" style="width: 100%; justify-content: center;">خروج</button>
+                <button class="btn btn-secondary btn-small" onclick="logout()" style="width: 100%; justify-content: center;">
+                    خروج
+                </button>
             </div>
         </div>
 
+        <!-- CONTENT AREA -->
         <div class="content-wrapper">
+            <!-- TOP BAR -->
             <div class="top-bar">
                 <h2 id="pageTitle">لوحة التحكم</h2>
                 <div class="user-section" style="gap: 16px;">
@@ -1010,7 +1214,9 @@
                         <button class="control-btn" id="enLang" style="width:36px; height:36px; font-size:0.8rem; font-weight:bold;">EN</button>
                     </div>
 
-                    <button class="btn btn-accent btn-small" id="newPatientBtn">+ مريض جديد</button>
+                    <button class="btn btn-accent btn-small" id="newPatientBtn">
+                        + مريض جديد
+                    </button>
                     
                     <div class="user-info" style="border-right: 1px solid var(--border); padding-right: 16px;">
                         <div class="user-avatar">د</div>
@@ -1022,7 +1228,9 @@
                 </div>
             </div>
 
+            <!-- MAIN CONTENT -->
             <div class="main-content">
+                <!-- DASHBOARD PAGE -->
                 <div id="dashboard" class="page active">
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -1078,24 +1286,26 @@
                                         <th>الإجراء</th>
                                     </tr>
                                 </thead>
-                                <tbody id="appointmentsTableBody"></tbody>
+                                <tbody id="appointmentsTableBody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <div id="patient-portal" class="page">
+                <!-- PATIENT PORTAL PAGE -->
+               <div id="patient-portal" class="page">
                     <div class="card" style="max-width: 650px; margin: 0 auto; position: relative; overflow: hidden;">
                         
                         <div style="background: var(--bg-secondary); height: 6px; width: 100%; position: absolute; top: 0; right: 0;">
-                            <div id="bookingProgress" style="background: var(--accent); height: 100%; width: 16.6%; transition: width 0.4s ease;"></div>
+                            <div id="bookingProgress" style="background: var(--accent); height: 100%; width: 20%; transition: width 0.4s ease;"></div>
                         </div>
 
                         <div class="card-header" style="margin-top: 10px;">
                             <h3 class="card-title" id="stepTitle">اختر الطبيب المعالج</h3>
                         </div>
 
-                        <div class="portal-step" id="portalStep1">
+                        <div class="portal-step active-step" id="portalStep1">
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 16px;">
                                 <div class="doctor-card" onclick="selectDoctorNext(this, 'د. فاطمة السالم')">
                                     <div class="doctor-name">د. فاطمة السالم</div>
@@ -1144,9 +1354,9 @@
                         <div class="portal-step" id="portalStep4" style="display: none;">
                             <div class="form-group" style="margin-top: 16px;">
                                 <label style="font-size: 1.1rem; margin-bottom: 12px;">رقم موبايلك للتواصل وتأكيد الحجز:</label>
-                                <div class="phone-input-wrapper" style="direction: ltr; text-align: left;">
+                                <div class="phone-input-wrapper">
                                     <span class="phone-prefix" style="font-family: 'Almarai', sans-serif;">🇯🇴 +962</span>
-                                    <input type="tel" id="portalPatientPhone" style="padding: 16px;" placeholder="791234567">
+                                    <input type="tel" id="portalPatientPhone" style="padding: 16px; text-align: left; direction: ltr;" placeholder="791234567">
                                 </div>
                             </div>
                             <button class="btn btn-accent" onclick="goToStep(5)" style="width: 100%; padding: 14px; justify-content: center; margin-top: 20px;">المتابعة ↵</button>
@@ -1155,7 +1365,7 @@
                         <div class="portal-step" id="portalStep5" style="display: none;">
                             <div class="form-group" style="margin-top: 16px;">
                                 <label style="font-size: 1.1rem; margin-bottom: 12px;">اشرح لنا الأعراض التي تشعر بها (اختياري):</label>
-                                <textarea id="portalPatientSymptoms" class="search-input" rows="4" style="background: var(--bg-secondary); padding: 16px;" placeholder="اكتب هنا ما تود إخبار الطبيب به..."></textarea>
+                                <textarea id="portalPatientSymptoms" class="search-input" rows="4" style="background: var(--bg-secondary); padding: 16px;" placeholder="اكتب هنا ما تود إخبار الطبيب به قبل زيارتك..."></textarea>
                             </div>
                             <button class="btn btn-accent" onclick="generateSummaryStep()" style="width: 100%; padding: 14px; justify-content: center; margin-top: 20px;">استعراض الملخص ↵</button>
                         </div>
@@ -1185,8 +1395,12 @@
                             </div>
 
                             <div style="display: flex; gap: 12px; margin-top: 24px;">
-                                <button class="btn btn-accent" onclick="submitPortalBooking()" style="flex: 2; padding: 14px; justify-content: center; font-size: 1rem;">✨ تأكيد حجز الموعد نهائياً</button>
-                                <button class="btn btn-secondary" onclick="resetPortalWizard()" style="flex: 1; padding: 14px; justify-content: center;">إلغاء</button>
+                                <button class="btn btn-accent" onclick="submitPortalBooking()" style="flex: 2; padding: 14px; justify-content: center; font-size: 1rem;">
+                                    ✨ تأكيد حجز الموعد نهائياً
+                                </button>
+                                <button class="btn btn-secondary" onclick="resetPortalWizard()" style="flex: 1; padding: 14px; justify-content: center;">
+                                    إلغاء
+                                </button>
                             </div>
                         </div>
 
@@ -1198,6 +1412,7 @@
                     </div>
                 </div>
 
+                <!-- PATIENTS PAGE -->
                 <div id="patients" class="page">
                     <div class="search-bar">
                         <input type="text" class="search-input" id="patientSearchInput" placeholder="ابحث عن مريض...">
@@ -1224,15 +1439,17 @@
                                         <th>الإجراء</th>
                                     </tr>
                                 </thead>
-                                <tbody id="patientsTableBody"></tbody>
+                                <tbody id="patientsTableBody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- APPOINTMENTS PAGE -->
                 <div id="appointments" class="page">
                     <div class="search-bar">
-                        <input type="date" class="search-input" id="appointmentDate" value="2026-05-19">
+                        <input type="date" class="search-input" id="appointmentDate" value="2024-01-20">
                         <select class="search-input" style="flex: 0 1 150px;">
                             <option>جميع الأطباء</option>
                             <option>د. فاطمة</option>
@@ -1257,12 +1474,14 @@
                                         <th>الإجراء</th>
                                     </tr>
                                 </thead>
-                                <tbody id="appointmentsFullTableBody"></tbody>
+                                <tbody id="appointmentsFullTableBody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- BILLING PAGE -->
                 <div id="billing" class="page">
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -1296,23 +1515,31 @@
                                         <th>الحالة</th>
                                     </tr>
                                 </thead>
-                                <tbody id="invoicesTableBody"></tbody>
+                                <tbody id="invoicesTableBody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- QUEUE PAGE -->
                 <div id="queue" class="page">
                     <div style="margin-bottom: 2rem;">
                         <h2 style="margin-bottom: 0.5rem;">طابور الانتظار</h2>
                         <p style="color: var(--text-tertiary);">عدد المنتظرين: <span id="queueCountText" style="color: var(--accent); font-size: 1.5rem; font-weight: 700;">0</span></p>
                     </div>
-                    <div class="queue-grid" id="queueGrid"></div>
+
+                    <div class="queue-grid" id="queueGrid">
+                    </div>
+
                     <div style="margin-top: 2.5rem;">
-                        <button class="btn btn-primary" onclick="callNextPatient()" style="width: 100%; padding: 1.25rem;">📢 استدعاء المريض التالي</button>
+                        <button class="btn btn-primary" onclick="callNextPatient()" style="width: 100%; padding: 1.25rem;">
+                            📢 استدعاء المريض التالي
+                        </button>
                     </div>
                 </div>
 
+                <!-- REPORTS PAGE -->
                 <div id="reports" class="page">
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -1347,30 +1574,38 @@
                                         <th>معدل الرضا</th>
                                     </tr>
                                 </thead>
-                                <tbody id="doctorsTableBody"></tbody>
+                                <tbody id="doctorsTableBody">
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
+    <!-- MODALS -->
+    <!-- PATIENT DETAILS MODAL -->
     <div id="patientDetailModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>بيانات المريض الكاملة</h2>
                 <button class="modal-close" onclick="closeModal('patientDetailModal')">✕</button>
             </div>
-            <div id="patientDetailContent" style="margin-bottom: 1.5rem;"></div>
+            <div id="patientDetailContent" style="margin-bottom: 1.5rem;">
+            </div>
             <div style="display: flex; gap: 1rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1.5px solid var(--border);">
-                <button class="btn btn-primary btn-small" style="width: 100%; justify-content: center;" onclick="openPrescriptionModal()">📄 معاينة الروشتة</button>
-                <button class="btn btn-secondary btn-small" style="width: 100%; justify-content: center;" onclick="editPatient()">✏️ تعديل</button>
+                <button class="btn btn-primary btn-small" style="width: 100%; justify-content: center;" onclick="openPrescriptionModal()">
+                    📄 معاينة الروشتة
+                </button>
+                <button class="btn btn-secondary btn-small" style="width: 100%; justify-content: center;" onclick="editPatient()">
+                    ✏️ تعديل
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- PRESCRIPTION MODAL -->
     <div id="prescriptionModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1382,20 +1617,37 @@
                     <h3 style="margin-bottom: 0.5rem;">🏥 ClinicPro</h3>
                     <p style="color: var(--text-tertiary); margin: 0;">عيادة الصحة والعافية</p>
                 </div>
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                    <div><p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">اسم المريض</p><p style="font-weight: 600; margin: 0;" id="prescriptionPatientName">-</p></div>
-                    <div><p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">التاريخ</p><p style="font-weight: 600; margin: 0;" id="prescriptionDate">-</p></div>
-                    <div><p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">الطبيب</p><p style="font-weight: 600; margin: 0;">د. فاطمة السالم</p></div>
-                    <div><p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">الحالة</p><p style="font-weight: 600; margin: 0;" id="prescriptionDiagnosis">-</p></div>
+                    <div>
+                        <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">اسم المريض</p>
+                        <p style="font-weight: 600; margin: 0;" id="prescriptionPatientName">-</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">التاريخ</p>
+                        <p style="font-weight: 600; margin: 0;" id="prescriptionDate">-</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">الطبيب</p>
+                        <p style="font-weight: 600; margin: 0;">د. فاطمة السالم</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">الحالة</p>
+                        <p style="font-weight: 600; margin: 0;" id="prescriptionDiagnosis">-</p>
+                    </div>
                 </div>
+
                 <div class="prescription-section">
                     <div class="prescription-section-title">🔍 الأعراض</div>
                     <p style="margin: 0; padding: 0.75rem; background: var(--bg-primary); border-radius: 8px;" id="prescriptionSymptoms">-</p>
                 </div>
+
                 <div class="prescription-section">
                     <div class="prescription-section-title">💊 الأدوية المصروفة</div>
-                    <div id="prescriptionMedicines"></div>
+                    <div id="prescriptionMedicines">
+                    </div>
                 </div>
+
                 <div class="prescription-section">
                     <div class="prescription-section-title">📋 التعليمات</div>
                     <p style="margin: 0; padding: 0.75rem; background: var(--bg-primary); border-radius: 8px; color: var(--text-secondary);">
@@ -1405,13 +1657,19 @@
                     </p>
                 </div>
             </div>
+
             <div style="display: flex; gap: 1rem;">
-                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="downloadPrescription()">📥 تحميل PDF</button>
-                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="closeModal('prescriptionModal')">إغلاق</button>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="downloadPrescription()">
+                    📥 تحميل PDF
+                </button>
+                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="closeModal('prescriptionModal')">
+                    إغلاق
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- NEW PATIENT MODAL -->
     <div id="newPatientModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1429,7 +1687,7 @@
                 </div>
                 <div class="form-group">
                     <label>رقم الجوال</label>
-                    <div class="phone-input-wrapper" style="direction: ltr; text-align: left;">
+                    <div class="phone-input-wrapper">
                         <span class="phone-prefix">🇯🇴 +962</span>
                         <input type="tel" placeholder="791234567" required>
                     </div>
@@ -1455,18 +1713,27 @@
         </div>
     </div>
 
+    <!-- DIAGNOSIS TEMPLATE MODAL -->
     <div id="diagnosisModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>إضافة تشخيص</h2>
                 <button class="modal-close" onclick="closeModal('diagnosisModal')">✕</button>
             </div>
+            
             <div style="margin-bottom: 2rem;">
                 <p style="margin-bottom: 1rem; font-weight: 600;">📋 استخدم القوالب السريعة:</p>
-                <button class="template-btn" onclick="applyTemplate('flu')">🦠 قالب الإنفلونزا</button>
-                <button class="template-btn" onclick="applyTemplate('infection')">🧬 قالب التهاب بكتيري</button>
-                <button class="template-btn" onclick="applyTemplate('allergy')">🍓 قالب الحساسية</button>
+                <button class="template-btn" onclick="applyTemplate('flu')">
+                    🦠 قالب الإنفلونزا
+                </button>
+                <button class="template-btn" onclick="applyTemplate('infection')">
+                    🧬 قالب التهاب بكتيري
+                </button>
+                <button class="template-btn" onclick="applyTemplate('allergy')">
+                    🍓 قالب الحساسية
+                </button>
             </div>
+
             <form id="diagnosisForm" onsubmit="submitDiagnosis(event)">
                 <div class="form-group">
                     <label>التشخيص</label>
@@ -1477,7 +1744,7 @@
                     <textarea id="symptomsField" required rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>الأدية المصروفة</label>
+                    <label>الأدوية المصروفة</label>
                     <textarea id="medicinesField" required rows="3"></textarea>
                 </div>
                 <div style="display: flex; gap: 1rem; margin-top: 2rem;">
@@ -1485,6 +1752,87 @@
                     <button type="button" class="btn btn-secondary" onclick="closeModal('diagnosisModal')">إلغاء</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- SICK LEAVE MODAL -->
+    <div id="sickLeaveModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <div class="modal-header">
+                <h2>إصدار إجازة مرضية</h2>
+                <button class="modal-close" onclick="closeModal('sickLeaveModal')">✕</button>
+            </div>
+            <form id="sickLeaveForm" onsubmit="generateSickLeave(event)">
+                <input type="hidden" id="slPatientName">
+                <input type="hidden" id="slDoctorName">
+                
+                <div class="form-group">
+                    <label>مدة الإجازة المطلوبة</label>
+                    <select id="slDuration" required>
+                        <option value="24 ساعة (يوم واحد)">24 ساعة (يوم واحد)</option>
+                        <option value="48 ساعة (يومان)">48 ساعة (يومان)</option>
+                        <option value="72 ساعة (ثلاثة أيام)">72 ساعة (ثلاثة أيام)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>السبب الطبي المبرر للإجازة</label>
+                    <textarea id="slReason" rows="3" required placeholder="مثال: إعياء عام حاد واستسقاء يتطلب الراحة التامة التزاماً بالخطة العلاجية..."></textarea>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary">✨ توليد الإجازة والمعاينة</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('sickLeaveModal')">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="sickLeavePrintModal" class="modal">
+        <div class="modal-content" style="max-width: 650px;">
+            <div class="modal-header">
+                <h2>معاينة الإجازة المرضية المعتمدة</h2>
+                <button class="modal-close" onclick="closeModal('sickLeavePrintModal')">✕</button>
+            </div>
+            
+            <div id="sickLeavePrintArea" style="background: #fff; color: #000; padding: 30px; border: 2px solid #0a3a3a; border-radius: 8px; font-family: 'Almarai', sans-serif; position: relative;">
+                
+                <div style="text-align: center; border-bottom: 2px solid #0a3a3a; padding-bottom: 15px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 5px 0; color: #0a3a3a; font-size: 1.6rem;">🏥 نظام ClinicPro الطبي</h3>
+                    <p style="margin: 0; color: #555; font-size: 0.85rem;">شهادة تقرير طبي وإجازة مرضية معتمدة</p>
+                </div>
+
+                <h4 style="text-align: center; text-decoration: underline; margin-bottom: 25px; color: #0a3a3a;">شـهادة إجـازة مـرضـيـة</h4>
+
+                <div style="line-height: 2; font-size: 1.05rem; margin-bottom: 40px; text-align: justify;">
+                    يشهد القسم الطبي في عيادات <strong>ClinicPro</strong> بأن المريض الكريم / الكريمة: 
+                    <span id="printSlPatient" style="border-bottom: 1px dotted #000; font-weight: bold; color: #0a3a3a;">-</span>، قد قام بمراجعة العيادة وتبين بعد الفحص السريري الدقيق والتشخيص الحسي أنه يعاني من: 
+                    <span id="printSlReason" style="border-bottom: 1px dotted #000; font-weight: 500;">-</span>.
+                    <br>
+                    وبناءً على مقتضيات حالته الصحية، فقد أُعطي هذه الإجازة المرضية للراحة التامة لمدة وقدرها 
+                    <strong id="printSlDuration" style="color: #a83c3c;">-</strong> ابتداءً من تاريخ اليوم <span id="printSlDate"></span>.
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee;">
+                    <div>
+                        <p style="margin: 0; font-size: 0.85rem; color: #666;">تاريخ الإصدار الرقمي:</p>
+                        <p style="margin: 4px 0 0 0; font-weight: bold;" id="printSlStampDate">-</p>
+                    </div>
+                    
+                    <div style="position: relative; width: 130px; height: 130px; display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 110px; height: 110px; border: 3px double #0d5d5d; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-5deg); background: rgba(13, 93, 93, 0.02); box-shadow: inset 0 0 4px rgba(13, 93, 93, 0.2);">
+                            <span style="font-size: 0.6rem; color: #0d5d5d; font-weight: 800; letter-spacing: 1px;">CLINICPRO APPROVED</span>
+                            <span style="font-size: 0.85rem; color: #a83c3c; font-weight: bold; margin: 4px 0;" id="printSlDocName">د. الطبيب</span>
+                            <span style="font-size: 0.55rem; color: #0d5d5d; border-top: 1px solid #0d5d5d; padding-top: 2px;">ختم إلكتروني معتمد</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn btn-accent" style="width: 100%; justify-content: center;" onclick="printSickLeave()">🖨️ طباعة الشهادة الآن</button>
+                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="closeModal('sickLeavePrintModal')">إغلاق</button>
+            </div>
         </div>
     </div>
 
@@ -1503,25 +1851,110 @@
             seedData() {
                 const data = {
                     patients: [
-                        { id: 1, name: 'علي سالم محمود', idNumber: '786543210', phone: '+962791234567', email: 'ali.salim@email.com', dob: '1985/03/15', blood: 'O+', insurance: 'كاش', medicalHistory: 'ارتفاع ضغط الدم', visits: [{ date: '2026/01/20', doctor: 'د. فاطمة', diagnosis: 'فحص دوري', medicines: 'أسبرين - مسكن' }] },
-                        { id: 2, name: 'سارة أحمد علي', idNumber: '654321098', phone: '+962795555555', email: 'sarah.ahmed@email.com', dob: '1990/07/22', blood: 'A+', insurance: 'تأمين', medicalHistory: 'السكري - حساسية', visits: [{ date: '2026/01/18', doctor: 'د. محمد', diagnosis: 'آلام الظهر', medicines: 'مرخي عضلات' }] }
+                        {
+                            id: 1,
+                            name: 'علي سالم محمود',
+                            idNumber: '786543210',
+                            phone: '+962791234567',
+                            email: 'ali.salim@email.com',
+                            dob: '1985/03/15',
+                            blood: 'O+',
+                            insurance: 'كاش',
+                            medicalHistory: 'ارتفاع ضغط الدم',
+                            visits: [
+                                { date: '2024/01/20', doctor: 'د. فاطمة', diagnosis: 'فحص دوري', medicines: 'أسبرين - مسكن' },
+                                { date: '2024/01/10', doctor: 'د. محمد', diagnosis: 'ارتفاع ضغط', medicines: 'مخفض ضغط' }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            name: 'سارة أحمد علي',
+                            idNumber: '654321098',
+                            phone: '+962795555555',
+                            email: 'sarah.ahmed@email.com',
+                            dob: '1990/07/22',
+                            blood: 'A+',
+                            insurance: 'تأمين',
+                            medicalHistory: 'السكري - حساسية',
+                            visits: [
+                                { date: '2024/01/18', doctor: 'د. محمد', diagnosis: 'آلام الظهر', medicines: 'مرخي عضلات' }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            name: 'خالد عمر حسن',
+                            idNumber: '123456789',
+                            phone: '+962796666666',
+                            email: 'khaled.omar@email.com',
+                            dob: '1988/11/08',
+                            blood: 'B+',
+                            insurance: 'كاش',
+                            medicalHistory: 'لا يوجد',
+                            visits: []
+                        },
+                        {
+                            id: 4,
+                            name: 'فاطمة إبراهيم أحمد',
+                            idNumber: '987654321',
+                            phone: '+962788888888',
+                            email: 'fatima.ibrahim@email.com',
+                            dob: '1992/05/30',
+                            blood: 'AB+',
+                            insurance: 'كاش',
+                            medicalHistory: 'حساسية موسمية',
+                            visits: []
+                        },
+                        {
+                            id: 5,
+                            name: 'محمد حسن علي',
+                            idNumber: '456789123',
+                            phone: '+962799999999',
+                            email: 'muhammad.hassan@email.com',
+                            dob: '1987/09/12',
+                            blood: 'O-',
+                            insurance: 'تأمين',
+                            medicalHistory: 'الربو',
+                            visits: []
+                        }
                     ],
                     appointments: [
-                        { id: 1, time: '08:00 ص', patientId: 1, patientName: 'علي سالم', doctor: 'د. فاطمة السالم', issue: 'فحص دوري', status: 'مكتمل', date: '2026/05/19' },
-                        { id: 2, time: '09:00 ص', patientId: 2, patientName: 'سارة أحمد', doctor: 'د. محمد أحمد', issue: 'آلام الظهر', status: 'جاري', date: '2026/05/19' }
+                        { id: 1, time: '08:00', patientId: 1, patientName: 'علي سالم', doctor: 'د. فاطمة', issue: 'فحص دوري', status: 'مكتمل', date: '2024/01/20' },
+                        { id: 2, time: '09:00', patientId: 2, patientName: 'سارة أحمد', doctor: 'د. محمد', issue: 'آلام الظهر', status: 'جاري', date: '2024/01/20' },
+                        { id: 3, time: '09:30', patientId: 3, patientName: 'خالد عمر', doctor: 'د. فاطمة', issue: 'متابعة', status: 'انتظار', date: '2024/01/20' },
+                        { id: 4, time: '10:00', patientId: 4, patientName: 'فاطمة إبراهيم', doctor: 'د. محمد', issue: 'استشارة', status: 'انتظار', date: '2024/01/20' },
+                        { id: 5, time: '10:30', patientId: 5, patientName: 'محمد حسن', doctor: 'د. فاطمة', issue: 'فحص', status: 'انتظار', date: '2024/01/20' },
+                        { id: 6, time: '11:00', patientId: 1, patientName: 'علي سالم', doctor: 'د. محمد', issue: 'متابعة', status: 'انتظار', date: '2024/01/20' },
+                        { id: 7, time: '11:30', patientId: 2, patientName: 'سارة أحمد', doctor: 'د. فاطمة', issue: 'فحص طبي', status: 'انتظار', date: '2024/01/20' },
+                        { id: 8, time: '12:00', patientId: 3, patientName: 'خالد عمر', doctor: 'د. محمد', issue: 'استشارة', status: 'انتظار', date: '2024/01/20' },
+                        { id: 9, time: '14:00', patientId: 4, patientName: 'فاطمة إبراهيم', doctor: 'د. فاطمة', issue: 'متابعة', status: 'انتظار', date: '2024/01/20' },
+                        { id: 10, time: '14:30', patientId: 5, patientName: 'محمد حسن', doctor: 'د. محمد', issue: 'فحص دوري', status: 'انتظار', date: '2024/01/20' }
                     ],
                     invoices: [
-                        { id: '#INV001', patientId: 1, patientName: 'علي سالم', amount: 450, method: 'كاش', date: '2026/05/19', status: 'مدفوع' },
-                        { id: '#INV002', patientId: 2, patientName: 'سارة أحمد', amount: 650, method: 'بطاقة', date: '2026/05/19', status: 'مدفوع' }
+                        { id: '#INV001', patientId: 1, patientName: 'علي سالم', amount: 450, method: 'كاش', date: '2024/01/20', status: 'مدفوع' },
+                        { id: '#INV002', patientId: 2, patientName: 'سارة أحمد', amount: 650, method: 'بطاقة', date: '2024/01/20', status: 'مدفوع' },
+                        { id: '#INV003', patientId: 3, patientName: 'خالد عمر', amount: 500, method: 'تأمين', date: '2024/01/20', status: 'قيد الانتظار' },
+                        { id: '#INV004', patientId: 4, patientName: 'فاطمة إبراهيم', amount: 320, method: 'كاش', date: '2024/01/19', status: 'مدفوع' },
+                        { id: '#INV005', patientId: 5, patientName: 'محمد حسن', amount: 1050, method: 'بطاقة', date: '2024/01/19', status: 'مدفوع' },
+                        { id: '#INV006', patientId: 1, patientName: 'علي سالم', amount: 380, method: 'كاش', date: '2024/01/18', status: 'مدفوع' },
+                        { id: '#INV007', patientId: 2, patientName: 'سارة أحمد', amount: 720, method: 'تأمين', date: '2024/01/18', status: 'مدفوع' },
+                        { id: '#INV008', patientId: 3, patientName: 'خالد عمر', amount: 420, method: 'بطاقة', date: '2024/01/17', status: 'مدفوع' }
                     ]
                 };
                 localStorage.setItem('clinicData', JSON.stringify(data));
             },
 
-            getPatients() { return JSON.parse(localStorage.getItem('clinicData')).patients; },
-            getAppointments() { return JSON.parse(localStorage.getItem('clinicData')).appointments; },
-            getInvoices() { return JSON.parse(localStorage.getItem('clinicData')).invoices; },
-            
+            getPatients() {
+                return JSON.parse(localStorage.getItem('clinicData')).patients;
+            },
+
+            getAppointments() {
+                return JSON.parse(localStorage.getItem('clinicData')).appointments;
+            },
+
+            getInvoices() {
+                return JSON.parse(localStorage.getItem('clinicData')).invoices;
+            },
+
             addPatient(patient) {
                 const data = JSON.parse(localStorage.getItem('clinicData'));
                 patient.id = Math.max(...data.patients.map(p => p.id), 0) + 1;
@@ -1529,6 +1962,7 @@
                 localStorage.setItem('clinicData', JSON.stringify(data));
                 return patient;
             },
+
             addAppointment(appointment) {
                 const data = JSON.parse(localStorage.getItem('clinicData'));
                 appointment.id = Math.max(...data.appointments.map(a => a.id), 0) + 1;
@@ -1536,6 +1970,7 @@
                 localStorage.setItem('clinicData', JSON.stringify(data));
                 return appointment;
             },
+
             addInvoice(invoice) {
                 const data = JSON.parse(localStorage.getItem('clinicData'));
                 data.invoices.push(invoice);
@@ -1544,7 +1979,7 @@
             }
         };
 
-        // ========== THEME CONTROLS ==========
+        // ========== THEME & LANGUAGE ==========
         const htmlElement = document.documentElement;
         const lightThemeBtn = document.getElementById('lightTheme');
         const darkThemeBtn = document.getElementById('darkTheme');
@@ -1563,7 +1998,8 @@
             localStorage.setItem('theme', 'dark');
         });
 
-        if (localStorage.getItem('theme') === 'dark') {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
             htmlElement.setAttribute('data-theme', 'dark');
             darkThemeBtn.classList.add('active');
             lightThemeBtn.classList.remove('active');
@@ -1572,30 +2008,30 @@
         // ========== AUTHENTICATION ==========
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            if (document.getElementById('email').value === 'admin@clinic.com' && document.getElementById('password').value === '123456') {
-                loginSuccess();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === 'admin@clinic.com' && password === '123456') {
+                document.getElementById('authPage').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                localStorage.setItem('isLoggedIn', 'true');
+                DBManager.initDB();
+                renderDashboard();
+                renderPatients();
+                renderAppointments();
+                renderBilling();
+                renderQueue();
+                renderReports();
+                showToast('✓ تم تسجيل الدخول بنجاح', 'success');
             } else {
                 showToast('❌ بيانات دخول غير صحيحة', 'error');
             }
         });
 
-        function loginSuccess() {
-            document.getElementById('authPage').classList.add('hidden');
-            document.getElementById('mainApp').classList.remove('hidden');
-            localStorage.setItem('isLoggedIn', 'true');
-            DBManager.initDB();
-            renderAll();
-            showToast('✓ تم تسجيل الدخول بنجاح', 'success');
-        }
-
         if (localStorage.getItem('isLoggedIn') === 'true') {
             document.getElementById('authPage').classList.add('hidden');
             document.getElementById('mainApp').classList.remove('hidden');
             DBManager.initDB();
-            window.addEventListener('DOMContentLoaded', renderAll);
-        }
-
-        function renderAll() {
             renderDashboard();
             renderPatients();
             renderAppointments();
@@ -1604,329 +2040,758 @@
             renderReports();
         }
 
-        // ========== RENDERING ENGINE ==========
+        // ========== RENDERING FUNCTIONS ==========
         function renderDashboard() {
             const appointments = DBManager.getAppointments();
             const invoices = DBManager.getInvoices();
-            const todayStr = '2026/05/19';
             
-            const todayAppts = appointments.filter(a => a.date === todayStr);
+            const todayAppts = appointments.filter(a => a.date === '2024/01/20');
+            const completed = todayAppts.filter(a => a.status === 'مكتمل').length;
+            const waiting = todayAppts.filter(a => a.status === 'انتظار').length;
+
             document.getElementById('todayPatientsCount').textContent = todayAppts.length;
-            document.getElementById('completedCount').textContent = todayAppts.filter(a => a.status === 'مكتمل').length;
-            document.getElementById('waitingCount').textContent = todayAppts.filter(a => a.status === 'انتظار').length;
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('waitingCount').textContent = waiting;
 
             const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
-            document.getElementById('dailyRevenueCount').textContent = totalRevenue.toLocaleString();
-            document.getElementById('cashRevenue').textContent = invoices.filter(inv => inv.method === 'كاش').reduce((sum, inv) => sum + inv.amount, 0).toLocaleString();
-            document.getElementById('cardRevenue').textContent = invoices.filter(inv => inv.method === 'بطاقة').reduce((sum, inv) => sum + inv.amount, 0).toLocaleString();
-            document.getElementById('insuranceRevenue').textContent = invoices.filter(inv => inv.method === 'تأمين').reduce((sum, inv) => sum + inv.amount, 0).toLocaleString();
+            const cashRevenue = invoices.filter(inv => inv.method === 'كاش').reduce((sum, inv) => sum + inv.amount, 0);
+            const cardRevenue = invoices.filter(inv => inv.method === 'بطاقة').reduce((sum, inv) => sum + inv.amount, 0);
+            const insuranceRevenue = invoices.filter(inv => inv.method === 'تأمين').reduce((sum, inv) => sum + inv.amount, 0);
 
-            let html = '';
-            todayAppts.forEach(apt => {
-                let status = apt.status === 'مكتمل' ? '<span class="badge badge-success">✓ مكتمل</span>' : apt.status === 'جاري' ? '<span class="badge badge-warning">⧖ جاري</span>' : '<span class="badge badge-info">⏳ انتظار</span>';
-                html += `<tr><td>${apt.time}</td><td>${apt.patientName}</td><td>${apt.doctor}</td><td>${status}</td><td><button class="btn btn-secondary btn-small" onclick="viewPatientDetails(${apt.patientId})">عرض</button></td></tr>`;
+            document.getElementById('dailyRevenueCount').textContent = totalRevenue.toLocaleString();
+            document.getElementById('cashRevenue').textContent = cashRevenue.toLocaleString();
+            document.getElementById('cardRevenue').textContent = cardRevenue.toLocaleString();
+            document.getElementById('insuranceRevenue').textContent = insuranceRevenue.toLocaleString();
+
+            let appointmentsHTML = '';
+            todayAppts.slice(0, 3).forEach(apt => {
+                let badge = '';
+                if (apt.status === 'مكتمل') badge = '<span class="badge badge-success">✓ مكتمل</span>';
+                else if (apt.status === 'جاري') badge = '<span class="badge badge-warning">⧖ جاري</span>';
+                else badge = '<span class="badge badge-info">⏳ انتظار</span>';
+
+                appointmentsHTML += `
+                    <tr>
+                        <td>${apt.time}</td>
+                        <td>${apt.patientName}</td>
+                        <td>${apt.doctor}</td>
+                        <td>${badge}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-small" onclick="viewPatientDetails(${apt.patientId})">
+                                عرض
+                            </button>
+                        </td>
+                    </tr>
+                `;
             });
-            document.getElementById('appointmentsTableBody').innerHTML = html || '<tr><td colspan="5" style="text-align:center;">لا يوجد مواعيد اليوم</td></tr>';
+            document.getElementById('appointmentsTableBody').innerHTML = appointmentsHTML;
         }
 
         function renderPatients() {
             const patients = DBManager.getPatients();
             document.getElementById('patientsCountBadge').textContent = patients.length;
-            let html = '';
-            patients.forEach(p => {
-                let type = p.insurance === 'كاش' ? '<span class="badge badge-success">💵 كاش</span>' : '<span class="badge badge-warning">🏥 تأمين</span>';
-                html += `<tr onclick="viewPatientDetails(${p.id})"><td>${p.name}</td><td>${p.phone}</td><td>${type}</td><td>${p.visits.length > 0 ? p.visits[0].date : '-'}</td><td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails(${p.id})">عرض</button></td></tr>`;
+
+            let patientsHTML = '';
+            patients.forEach(patient => {
+                const badge = patient.insurance === 'كاش' ? '<span class="badge badge-success">💵 كاش</span>' : '<span class="badge badge-warning">🏥 تأمين</span>';
+                
+                patientsHTML += `
+                    <tr onclick="viewPatientDetails(${patient.id})">
+                        <td>${patient.name}</td>
+                        <td>${patient.phone}</td>
+                        <td>${badge}</td>
+                        <td>${patient.visits.length > 0 ? patient.visits[0].date : '-'}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails(${patient.id})">
+                                عرض
+                            </button>
+                        </td>
+                    </tr>
+                `;
             });
-            document.getElementById('patientsTableBody').innerHTML = html;
+            document.getElementById('patientsTableBody').innerHTML = patientsHTML;
         }
 
         function renderAppointments() {
-            const appointments = DBManager.getAppointments();
-            let html = '';
+            const appointments = DBManager.getAppointments().filter(a => a.date === '2024/01/20');
+
+            let appointmentsHTML = '';
             appointments.forEach(apt => {
-                let status = apt.status === 'مكتمل' ? '<span class="badge badge-success">✓ مكتمل</span>' : apt.status === 'جاري' ? '<span class="badge badge-warning">⧖ جاري</span>' : '<span class="badge badge-info">⏳ انتظار</span>';
-                html += `<tr><td>${apt.time}</td><td>${apt.patientName}</td><td>${apt.doctor}</td><td>${apt.issue}</td><td>${status}</td><td><button class="btn btn-secondary btn-small" onclick="openModal('diagnosisModal')">🩺 تشخيص</button></td></tr>`;
+                let statusBadge = '';
+                if (apt.status === 'مكتمل') statusBadge = '<span class="badge badge-success">✓ مكتمل</span>';
+                else if (apt.status === 'جاري') statusBadge = '<span class="badge badge-warning">⧖ جاري</span>';
+                else statusBadge = '<span class="badge badge-info">⏳ انتظار</span>';
+
+                appointmentsHTML += `
+                    <tr onclick="openAppointmentDetail(${apt.id})">
+                        <td>${apt.time}</td>
+                        <td>${apt.patientName}</td>
+                        <td>${apt.doctor}</td>
+                        <td>${apt.issue}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); openModal('diagnosisModal')">Nordic 🩺 تشخيص</button>
+                                <button class="btn btn-secondary btn-small" style="border-color: var(--warning); color: var(--warning);" onclick="event.stopPropagation(); openSickLeaveModal('${apt.patientName}', '${apt.doctor}')">📄 إجازة مرضية</button>
+                            </div>
+                        </td>
+                    </tr>`;
             });
-            document.getElementById('appointmentsFullTableBody').innerHTML = html;
+            document.getElementById('appointmentsFullTableBody').innerHTML = appointmentsHTML;
         }
 
         function renderBilling() {
             const invoices = DBManager.getInvoices();
-            document.getElementById('totalRevenueCard').textContent = invoices.reduce((s, i) => s + i.amount, 0).toLocaleString();
-            document.getElementById('totalCashCard').textContent = invoices.filter(i => i.method === 'كاش').reduce((s, i) => s + i.amount, 0).toLocaleString();
-            document.getElementById('totalCardCard').textContent = invoices.filter(i => i.method === 'بطاقة').reduce((s, i) => s + i.amount, 0).toLocaleString();
+            const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
+            const cashRevenue = invoices.filter(inv => inv.method === 'كاش').reduce((sum, inv) => sum + inv.amount, 0);
+            const cardRevenue = invoices.filter(inv => inv.method === 'بطاقة').reduce((sum, inv) => sum + inv.amount, 0);
 
-            let html = '';
-            invoices.forEach(inv => {
-                let icon = inv.method === 'كاش' ? '💵' : '💳';
-                html += `<tr><td>${inv.id}</td><td>${inv.patientName}</td><td>${inv.amount}</td><td>${icon} ${inv.method}</td><td>${inv.date}</td><td><span class="badge badge-success">✓ مدفوع</span></td></tr>`;
+            document.getElementById('totalRevenueCard').textContent = totalRevenue.toLocaleString();
+            document.getElementById('totalCashCard').textContent = cashRevenue.toLocaleString();
+            document.getElementById('totalCardCard').textContent = cardRevenue.toLocaleString();
+
+            let invoicesHTML = '';
+            invoices.forEach(invoice => {
+                let methodIcon = invoice.method === 'كاش' ? '💵' : invoice.method === 'بطاقة' ? '💳' : '🏥';
+                let statusBadge = invoice.status === 'مدفوع' ? '<span class="badge badge-success">✓ مدفوع</span>' : '<span class="badge badge-warning">⏳ قيد الانتظار</span>';
+
+                invoicesHTML += `
+                    <tr onclick="openInvoiceDetail('${invoice.id}')">
+                        <td>${invoice.id}</td>
+                        <td>${invoice.patientName}</td>
+                        <td>${invoice.amount.toLocaleString()}</td>
+                        <td>${methodIcon} ${invoice.method}</td>
+                        <td>${invoice.date}</td>
+                        <td>${statusBadge}</td>
+                    </tr>
+                `;
             });
-            document.getElementById('invoicesTableBody').innerHTML = html;
+            document.getElementById('invoicesTableBody').innerHTML = invoicesHTML;
         }
 
         function renderQueue() {
-            const appointments = DBManager.getAppointments().filter(a => a.status === 'انتظار');
+            const appointments = DBManager.getAppointments().filter(a => a.date === '2024/01/20' && a.status === 'انتظار');
             document.getElementById('queueCountText').textContent = appointments.length;
-            let html = '';
-            appointments.forEach((apt, i) => {
-                html += `<div class="queue-item ${i === 0 ? 'calling' : ''}"><div class="queue-number">${i + 1}</div><div class="queue-name">${apt.patientName}</div><div class="queue-doctor">${apt.doctor}</div></div>`;
+
+            let queueHTML = '';
+            appointments.forEach((apt, index) => {
+                const isFirst = index === 0;
+                queueHTML += `
+                    <div class="queue-item ${isFirst ? 'calling' : ''}">
+                        <div class="queue-number">${5 + index}</div>
+                        <div class="queue-name">${apt.patientName}</div>
+                        <div class="queue-doctor">${apt.doctor}</div>
+                    </div>
+                `;
             });
-            document.getElementById('queueGrid').innerHTML = html || '<p style="grid-column: 1/-1; text-align:center; padding:20px; color:var(--text-tertiary);">لا يوجد مرضى في الانتظار حالياً</p>';
+            document.getElementById('queueGrid').innerHTML = queueHTML;
         }
 
         function renderReports() {
-            document.getElementById('totalRevenueReport').textContent = DBManager.getInvoices().reduce((s, i) => s + i.amount, 0).toLocaleString();
-            document.getElementById('totalPatientsReport').textContent = DBManager.getPatients().length;
-            document.getElementById('totalAppointmentsReport').textContent = DBManager.getAppointments().length;
-            document.getElementById('doctorsTableBody').innerHTML = `<tr><td>د. فاطمة السالم</td><td>325</td><td>45,200</td><td>4.9/5 ⭐</td></tr><tr><td>د. محمد أحمد</td><td>298</td><td>41,500</td><td>4.7/5 ⭐</td></tr>`;
+            const patients = DBManager.getPatients();
+            const appointments = DBManager.getAppointments();
+            const invoices = DBManager.getInvoices();
+
+            const totalRevenue = invoices.reduce((sum, inv) => sum + inv.amount, 0);
+
+            document.getElementById('totalRevenueReport').textContent = totalRevenue.toLocaleString();
+            document.getElementById('totalPatientsReport').textContent = patients.length;
+            document.getElementById('totalAppointmentsReport').textContent = appointments.length;
+
+            let doctorsHTML = `
+                <tr>
+                    <td>د. فاطمة السالم</td>
+                    <td>325</td>
+                    <td>45,200</td>
+                    <td>4.9/5 ⭐</td>
+                </tr>
+                <tr>
+                    <td>د. محمد أحمد</td>
+                    <td>298</td>
+                    <td>41,500</td>
+                    <td>4.7/5 ⭐</td>
+                </tr>
+                <tr>
+                    <td>د. علي حسن</td>
+                    <td>276</td>
+                    <td>38,750</td>
+                    <td>4.6/5 ⭐</td>
+                </tr>
+            `;
+            document.getElementById('doctorsTableBody').innerHTML = doctorsHTML;
         }
 
-        // ========== SYSTEM NAVIGATION ==========
+        // ========== PAGE NAVIGATION ==========
         function showPage(pageName) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const page = document.getElementById(pageName);
-            if (page) page.classList.add('active');
+            if (page) {
+                page.classList.add('active');
+            }
 
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             if (event && event.target) {
                 const navItem = event.target.closest('.nav-item');
-                if (navItem) navItem.classList.add('active');
+                if (navItem) {
+                    navItem.classList.add('active');
+                }
             }
 
-            const titles = { dashboard: 'لوحة التحكم', 'patient-portal': 'بوابة المريض', patients: 'المرضى', appointments: 'المواعيد', billing: 'الفوترة', queue: 'طابور الانتظار', reports: 'التقارير' };
-            document.getElementById('pageTitle').textContent = titles[pageName] || pageName;
+            const titles = {
+                dashboard: 'لوحة التحكم',
+                'patient-portal': 'بوابة المريض',
+                patients: 'المرضى',
+                appointments: 'المواعيد',
+                billing: 'الفوترة',
+                queue: 'طابور الانتظار',
+                reports: 'التقارير'
+            };
+            const pageTitle = document.getElementById('pageTitle');
+            if (pageTitle) {
+                pageTitle.textContent = titles[pageName] || pageName;
+            }
         }
 
-        // ========== PORTAL WIZARD ENGINE (TYPEFORM STYLE) ==========
-        let portalBookingData = { doctor: null, date: null, time: null, name: '', phone: '', symptoms: '' };
+        // ========== PATIENT MANAGEMENT ==========
+        function viewPatientDetails(patientId) {
+            const patients = DBManager.getPatients();
+            const patient = patients.find(p => p.id === patientId);
+            currentPatient = patient;
+
+            if (patient) {
+                let html = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">الاسم</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.name}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">رقم الهوية</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.idNumber}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">الهاتف</p>
+                            <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                                ${patient.phone}
+                                <button class="whatsapp-btn" onclick="sendWhatsAppReminder('${patient.name}')">💬</button>
+                            </p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">البريد</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.email}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">تاريخ الميلاد</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.dob}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">فصيلة الدم</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.blood}</p>
+                        </div>
+                    </div>
+                `;
+
+                if (patient.visits.length > 0) {
+                    html += `
+                        <div style="padding-top: 1.5rem; border-top: 1.5px solid var(--border);">
+                            <h4 style="margin-bottom: 1rem;">📋 الزيارات السابقة</h4>
+                            <div style="display: grid; gap: 0.75rem;">
+                    `;
+                    patient.visits.forEach(visit => {
+                        html += `
+                            <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: 8px; border-right: 3px solid var(--primary);">
+                                <p style="margin: 0 0 0.5rem 0; font-weight: 600;">${visit.date} | ${visit.doctor}</p>
+                                <p style="margin: 0 0 0.25rem 0; color: var(--text-secondary);">📝 ${visit.diagnosis}</p>
+                                <p style="margin: 0; color: var(--text-tertiary); font-size: 0.85rem;">💊 ${visit.medicines}</p>
+                            </div>
+                        `;
+                    });
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+
+                document.getElementById('patientDetailContent').innerHTML = html;
+                openModal('patientDetailModal');
+            }
+        }
+
+        function openPrescriptionModal() {
+            if (currentPatient) {
+                const lastVisit = currentPatient.visits.length > 0 ? currentPatient.visits[0] : {
+                    diagnosis: 'فحص دوري',
+                    medicines: 'أسبرين 500 ملغ - مسكن قوي'
+                };
+
+                document.getElementById('prescriptionPatientName').textContent = currentPatient.name;
+                document.getElementById('prescriptionDiagnosis').textContent = lastVisit.diagnosis;
+                document.getElementById('prescriptionSymptoms').textContent = 'ألم في الرأس، ارتفاع درجة الحرارة';
+                document.getElementById('prescriptionDate').textContent = new Date().toLocaleDateString('ar-SA');
+
+                const medicines = lastVisit.medicines.split(' - ');
+                let medicinesHTML = '';
+                medicines.forEach(med => {
+                    medicinesHTML += `<div class="prescription-item">• ${med}</div>`;
+                });
+                document.getElementById('prescriptionMedicines').innerHTML = medicinesHTML;
+
+                openModal('prescriptionModal');
+            }
+        }
+
+        function downloadPrescription() {
+            showToast('✓ تم تحميل الروشتة بنجاح', 'success');
+        }
+
+        function sendWhatsAppReminder(patientName) {
+            showToast('✓ تم إرسال تذكير واتساب للمريض بنجاح', 'success');
+        }
+
+        function editPatient() {
+            showToast('📝 تم فتح شاشة التعديل', 'warning');
+        }
+
+        // ========== APPOINTMENTS ==========
+        function openDiagnosisModal() {
+            openModal('diagnosisModal');
+        }
+
+        function applyTemplate(templateType) {
+            const templates = {
+                flu: {
+                    diagnosis: 'إنفلونزا موسمية',
+                    symptoms: 'ارتفاع درجة الحرارة، سعال جاف، وجع عضلات، إرهاق عام',
+                    medicines: 'باراسيتامول 500 ملغ - 3 مرات يومياً\nامبروكسول شراب - مرتين يومياً\nفيتامين C - مرة يومياً'
+                },
+                infection: {
+                    diagnosis: 'التهاب بكتيري',
+                    symptoms: 'ارتفاع درجة الحرارة، احمرار في المنطقة، تورم، الم عند اللمس',
+                    medicines: 'أموكسيسيلين 500 ملغ - 3 مرات يومياً\nإيبوبروفين 200 ملغ - مرتين يومياً\nكريم موضعي مضاد - 3 مرات يومياً'
+                },
+                allergy: {
+                    diagnosis: 'حساسية موسمية',
+                    symptoms: 'حكة في العيون، سيلان الأنف، عطس متكرر، طفح جلدي طفيف',
+                    medicines: 'سيتيريزين 10 ملغ - مرة يومياً\nفلوتيكازون بخاخ - مرتين يومياً\nكريم مرطب - حسب الحاجة'
+                }
+            };
+
+            const template = templates[templateType];
+            document.getElementById('diagnosisField').value = template.diagnosis;
+            document.getElementById('symptomsField').value = template.symptoms;
+            document.getElementById('medicinesField').value = template.medicines;
+
+            showToast('✨ تم تطبيق القالب بنجاح', 'success');
+        }
+
+        function submitDiagnosis(e) {
+            e.preventDefault();
+            closeModal('diagnosisModal');
+            showToast('✓ تم حفظ التشخيص بنجاح', 'success');
+        }
+
+        function openAppointmentDetail(appointmentId) {
+            const appointments = DBManager.getAppointments();
+            const apt = appointments.find(a => a.id === appointmentId);
+            showToast('📅 موعد مع ' + apt.patientName, 'info');
+        }
+
+        function openAddAppointment() {
+            showToast('📅 فتح شاشة إنشاء موعد جديد', 'warning');
+        }
+
+        // ========== BILLING ==========
+        function openAddInvoice() {
+            showToast('💳 فتح شاشة إنشاء فاتورة جديدة', 'warning');
+        }
+
+        function openInvoiceDetail(invoiceId) {
+            const invoices = DBManager.getInvoices();
+            const invoice = invoices.find(inv => inv.id === invoiceId);
+            showToast('💳 ' + invoiceId + ' - المريض: ' + invoice.patientName, 'info');
+        }
+
+        // ========== QUEUE ==========
+        let currentQueueIndex = 0;
+
+        setInterval(() => {
+            const appointments = DBManager.getAppointments().filter(a => a.date === '2024/01/20' && a.status === 'انتظار');
+            document.querySelectorAll('.queue-item').forEach((item, i) => {
+                item.classList.toggle('calling', i === currentQueueIndex);
+            });
+        }, 3000);
+
+        function callNextPatient() {
+            const appointments = DBManager.getAppointments().filter(a => a.date === '2024/01/20' && a.status === 'انتظار');
+            if (appointments.length > currentQueueIndex) {
+                const currentPatient = appointments[currentQueueIndex];
+                showToast('📢 استدعاء: ' + currentPatient.patientName, 'success');
+                currentQueueIndex = (currentQueueIndex + 1) % appointments.length;
+            }
+        }
+
+        // ========== NEW PATIENT FORM ==========
+        document.getElementById('newPatientBtn').addEventListener('click', () => {
+            openModal('newPatientModal');
+        });
+
+        function submitNewPatient(e) {
+            e.preventDefault();
+            const form = e.target;
+            const inputs = form.querySelectorAll('input, select, textarea');
+            
+            const newPatient = {
+                name: inputs[0].value,
+                idNumber: inputs[1].value,
+                phone: '+962' + inputs[2].value,
+                email: inputs[0].value.toLowerCase().replace(/\s/g, '.') + '@email.com',
+                dob: '1990/01/01',
+                blood: 'O+',
+                insurance: inputs[3].value,
+                medicalHistory: inputs[4].value,
+                visits: []
+            };
+
+            DBManager.addPatient(newPatient);
+            closeModal('newPatientModal');
+            renderPatients();
+            form.reset();
+            showToast('✓ تم إضافة المريض بنجاح', 'success');
+        }
+
+        // ========== PATIENT PORTAL ==========
+        let selectedDoctor = null;
+        let selectedDate = null;
+        let selectedTime = null;
+        let portalBookingData = {
+            doctor: null,
+            date: null,
+            time: null,
+            patientName: '',
+            phone: '',
+            symptoms: ''
+        };
         let currentPortalStep = 1;
         let currentMonth = new Date();
 
-        const stepTitles = {
-            1: "اختر الطبيب المعالج",
-            2: "اختر تاريخ ووقت الموعد",
-            3: "ما هو اسمك الكريم؟",
-            4: "رقم الموبايل للتواصل",
-            5: "ما هي الأعراض التي تشعر بها؟",
-            6: "راجع بيانات موعدك قبل التأكيد"
-        };
-
-        function goToStep(stepNumber) {
-            if (stepNumber > currentPortalStep) {
-                if (currentPortalStep === 3 && !document.getElementById('portalPatientName').value.trim()) {
-                    showToast('❌ يرجى إدخال اسمك أولاً للمتابعة', 'error');
-                    return;
-                }
-                if (currentPortalStep === 4 && !document.getElementById('portalPatientPhone').value.trim()) {
-                    showToast('❌ يرجى إدخال رقم هاتفك للمتابعة', 'error');
-                    return;
-                }
-            }
-
-            portalBookingData.name = document.getElementById('portalPatientName').value;
-            portalBookingData.phone = document.getElementById('portalPatientPhone').value;
-            portalBookingData.symptoms = document.getElementById('portalPatientSymptoms').value || 'لا يوجد أعراض مشروحة';
-
-            document.querySelectorAll('.portal-step').forEach(step => step.style.display = 'none');
-            const targetStep = document.getElementById(`portalStep${stepNumber}`);
-            if (targetStep) targetStep.style.display = 'block';
-
-            currentPortalStep = stepNumber;
-            document.getElementById('stepTitle').textContent = stepTitles[stepNumber];
-            document.getElementById('bookingProgress').style.width = `${(stepNumber / 6) * 100}%`;
-
-            const navBar = document.getElementById('portalNavButtons');
-            if (stepNumber > 1) {
-                navBar.style.display = 'flex';
-                document.getElementById('portalStepIndicator').textContent = `الخطوة ${stepNumber} من 6`;
-            } else {
-                navBar.style.display = 'none';
-            }
+        function selectDoctor(element, doctorId) {
+            document.querySelectorAll('.doctor-card').forEach(card => {
+                card.style.borderColor = '';
+                card.style.background = '';
+            });
+            element.style.borderColor = 'var(--accent)';
+            element.style.background = 'rgba(212, 165, 116, 0.05)';
+            selectedDoctor = doctorId;
+            portalBookingData.doctor = doctorId;
+            document.getElementById('appointmentForm').style.display = 'block';
+            renderCalendar();
         }
 
-        function goBackStep() { if (currentPortalStep > 1) goToStep(currentPortalStep - 1); }
-
-        function selectDoctorNext(cardElement, doctorName) {
-            document.querySelectorAll('#portalStep1 .doctor-card').forEach(c => { c.style.borderColor = ''; c.style.background = ''; });
-            cardElement.style.borderColor = 'var(--accent)';
-            cardElement.style.background = 'rgba(212, 165, 116, 0.05)';
+        function selectDoctorNext(element, doctorName) {
+            document.querySelectorAll('.doctor-card').forEach(card => {
+                card.style.borderColor = '';
+                card.style.background = '';
+            });
+            element.style.borderColor = 'var(--accent)';
+            element.style.background = 'rgba(212, 165, 116, 0.05)';
             portalBookingData.doctor = doctorName;
-            renderCalendar();
-            document.getElementById('timeSlotsSection').style.display = 'none';
+            selectedDoctor = doctorName;
             goToStep(2);
+            renderCalendar();
         }
 
         function renderCalendar() {
-            const year = currentMonth.getFullYear();
-            const month = currentMonth.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDay = new Date(year, month + 1, 0).getDate();
-            const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-            
-            document.getElementById('monthYear').textContent = monthNames[month] + ' ' + year;
-            let html = '';
-            ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'].forEach(d => html += `<div style="font-weight:700; text-align:center; padding:8px; color:var(--text-secondary);">${d}</div>`);
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    
+    // حساب أول يوم في الشهر (0 = الأحد، 1 = الإثنين، إلخ) وعدد أيام الشهر بالكامل
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    
+    // مصفوفة أسماء الأشهر لعرضها في أعلى التقويم
+    const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    document.getElementById('monthYear').textContent = monthNames[month] + ' ' + year;
+    
+    let html = '';
+    
+    // 1. توليد أيام الأسبوع كعناوين (ح، ن، ث، ر، خ، ج، س)
+    const dayNames = ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'];
+    dayNames.forEach(day => html += `<div style="font-weight: 700; text-align: center; padding: 8px; color: var(--text-secondary);">${day}</div>`);
 
-            for (let i = 0; i < firstDay; i++) html += '<div class="calendar-day disabled">-</div>';
+    // 2. توليد مربعات فارغة (معطلة) للأيام التي تسبق بداية الشهر الحالي
+    for (let i = 0; i < firstDay; i++) {
+        html += '<div class="calendar-day disabled">-</div>';
+    }
 
-            for (let day = 1; day <= lastDay; day++) {
-                const isBooked = Math.random() > 0.85;
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const status = isBooked ? 'booked' : 'available';
-                const onclick = !isBooked ? `selectDate('${dateStr}')` : '';
-                const isSelected = (portalBookingData.date === dateStr) ? 'selected' : '';
-                html += `<div class="calendar-day ${status} ${isSelected}" ${onclick ? `onclick="${onclick}"` : ''}>${day}</div>`;
+    // 3. توليد الأيام الفعلية للشهر (من 1 إلى آخر يوم في الشهر)
+    for (let day = 1; day <= lastDay; day++) {
+        // محاكاة عشوائية لحالة اليوم (متاح أو محجوز بالكامل)
+        const isBooked = Math.random() > 0.85; 
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const status = isBooked ? 'booked' : 'available';
+        
+        // إذا كان اليوم متاحاً، عند الضغط عليه يستدعي دالة selectDate ويمرر لها التاريخ
+        const onclick = !isBooked ? `selectDate('${dateStr}', this)` : '';
+        
+        // التحقق إن كان هذا اليوم هو المختار مسبقاً لإضافة وسم التمييز (selected)
+        const isSelectedClass = (portalBookingData.date === dateStr) ? 'selected' : '';
+        
+        html += `<div class="calendar-day ${status} ${isSelectedClass}" ${onclick ? `onclick="${onclick}"` : ''}>${day}</div>`;
+    }
+
+    // حقن الكود المولد بالكامل داخل شبكة التقويم في الصفحة
+    document.getElementById('calendarGrid').innerHTML = html;
+}
+
+      function selectDate(date, element) {
+    selectedDate = date;
+    portalBookingData.date = date;
+    
+    document.querySelectorAll('.calendar-day').forEach(day => day.classList.remove('selected'));
+    if (element) {
+        element.classList.add('selected');
+    }
+
+    document.getElementById('timeSlotsSection').style.display = 'block';
+    
+    // 4. مصفوفة المواعيد اليومية المتاحة في العيادة
+    const times = ['09:00 ص', '10:00 ص', '11:00 ص', '02:00 م', '03:00 م', '04:00 م'];
+    let html = '';
+    
+    // 5. بناء أزرار الساعات المتاحة والمحجوزة ديناميكياً
+    times.forEach(time => {
+        // محاكاة عشوائية لحجز الساعات داخل اليوم المختار
+        const isBooked = Math.random() > 0.8;
+        
+        // إذا كانت الساعة غير محجوزة، عند نقرها تستدعي دالة التوجيه الفوري selectTimeNext
+        const onclick = !isBooked ? `selectTimeNext('${time}')` : '';
+        const statusClass = isBooked ? 'booked' : 'available';
+        
+        html += `<div class="time-slot ${statusClass}" ${onclick ? `onclick="${onclick}"` : ''}>${time}</div>`;
+    });
+    
+    // حقن أزرار الأوقات داخل الحاوية المخصصة لها
+    document.getElementById('timeSlotsContainer').innerHTML = html;
+}
+
+       function selectTimeNext(time) {
+    // 1. تخزين الساعة المجمعة داخل كائن الحجز
+    selectedTime = time;
+    portalBookingData.time = time;
+    
+    // 2. إرسال إشعار تأكيدي سريع للمريض بأن الوقت تم اعتماده
+    showToast('✓ تم اختيار وقت الموعد بنجاح', 'success');
+    
+    // 3. نقل المريض تلقائياً وبشكل فوري للخطوة رقم 3 (طلب اسم المريض الكريم)
+    goToStep(3); 
+}
+
+        function goToStep(step) {
+            const totalSteps = 6;
+            currentPortalStep = step;
+            document.querySelectorAll('.portal-step').forEach(stepEl => stepEl.style.display = 'none');
+            const target = document.getElementById(`portalStep${step}`);
+            if (target) {
+                target.style.display = 'block';
             }
-            document.getElementById('calendarGrid').innerHTML = html;
+
+            document.getElementById('portalNavButtons').style.display = step > 1 ? 'flex' : 'none';
+            document.getElementById('portalStepIndicator').textContent = `الخطوة ${step} من ${totalSteps}`;
+            document.getElementById('bookingProgress').style.width = `${Math.round((step / totalSteps) * 100)}%`;
+
+            const titles = {
+                1: 'اختر الطبيب المعالج',
+                2: 'اختر تاريخ الموعد',
+                3: 'أدخل اسم المريض',
+                4: 'رقم التواصل',
+                5: 'أدخل الأعراض (اختياري)',
+                6: 'مراجعة الحجز'
+            };
+            const stepTitle = document.getElementById('stepTitle');
+            if (stepTitle) {
+                stepTitle.textContent = titles[step] || stepTitle.textContent;
+            }
         }
 
-        function selectDate(date) {
-            portalBookingData.date = date;
-            document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
-            if (event && event.target) event.target.classList.add('selected');
-
-            document.getElementById('timeSlotsSection').style.display = 'block';
-            const times = ['09:00 ص', '10:00 ص', '11:00 ص', '02:00 م', '03:00 م', '04:00 م'];
-            let html = '';
-            times.forEach(t => {
-                const isBooked = Math.random() > 0.8;
-                html += `<div class="time-slot ${isBooked ? 'booked' : 'available'}" ${!isBooked ? `onclick="selectTimeNext('${t}')"` : ''}>${t}</div>`;
-            });
-            document.getElementById('timeSlotsContainer').innerHTML = html;
+        function goBackStep() {
+            if (currentPortalStep > 1) {
+                goToStep(currentPortalStep - 1);
+            }
         }
-
-        function selectTimeNext(time) {
-            portalBookingData.time = time;
-            showToast('✓ تم اختيار وقت الموعد بنجاح', 'success');
-            goToStep(3);
-        }
-
-        function prevMonth() { currentMonth.setMonth(currentMonth.getMonth() - 1); renderCalendar(); document.getElementById('timeSlotsSection').style.display = 'none'; }
-        function nextMonth() { currentMonth.setMonth(currentMonth.getMonth() + 1); renderCalendar(); document.getElementById('timeSlotsSection').style.display = 'none'; }
 
         function generateSummaryStep() {
-            document.getElementById('sumDoc').textContent = portalBookingData.doctor;
-            document.getElementById('sumTime').textContent = `${portalBookingData.date} عند الساعة ${portalBookingData.time}`;
-            document.getElementById('sumName').textContent = document.getElementById('portalPatientName').value;
-            document.getElementById('sumPhone').textContent = `+962 ${document.getElementById('portalPatientPhone').value}`;
-            document.getElementById('sumSymptoms').textContent = document.getElementById('portalPatientSymptoms').value || 'لا يوجد أعراض مشروحة';
+            portalBookingData.patientName = document.getElementById('portalPatientName').value.trim();
+            portalBookingData.phone = document.getElementById('portalPatientPhone').value.trim();
+            portalBookingData.symptoms = document.getElementById('portalPatientSymptoms').value.trim();
+
+            if (!portalBookingData.patientName || !portalBookingData.phone) {
+                showToast('❌ يرجى إدخال الاسم ورقم الموبايل قبل المتابعة', 'error');
+                return;
+            }
+
+            document.getElementById('sumDoc').textContent = portalBookingData.doctor || '-';
+            document.getElementById('sumTime').textContent = portalBookingData.time || '-';
+            document.getElementById('sumName').textContent = portalBookingData.patientName || '-';
+            document.getElementById('sumPhone').textContent = portalBookingData.phone ? `+962 ${portalBookingData.phone}` : '-';
+            document.getElementById('sumSymptoms').textContent = portalBookingData.symptoms || 'لا توجد أعراض إضافية';
+
             goToStep(6);
         }
 
         function submitPortalBooking() {
-            const newAppointment = {
-                time: portalBookingData.time,
-                patientName: portalBookingData.name,
-                doctor: portalBookingData.doctor,
-                issue: portalBookingData.symptoms,
-                status: 'انتظار',
-                date: '2026/05/19'
-            };
-            DBManager.addAppointment(newAppointment);
-            renderAll();
-            showToast('✨ تم تأكيد حجز موعدك بنجاح ومزامنته بالنظام!', 'success');
+            if (!portalBookingData.doctor || !portalBookingData.date || !portalBookingData.time || !portalBookingData.patientName || !portalBookingData.phone) {
+                showToast('❌ يرجى إكمال جميع بيانات الحجز قبل التأكيد', 'error');
+                return;
+            }
+
+            showToast(`✓ تم تأكيد حجز موعد مع ${portalBookingData.doctor} بتاريخ ${portalBookingData.date} الساعة ${portalBookingData.time}`, 'success');
             resetPortalWizard();
-            showPage('dashboard');
         }
 
         function resetPortalWizard() {
-            portalBookingData = { doctor: null, date: null, time: null, name: '', phone: '', symptoms: '' };
+            portalBookingData = {
+                doctor: null,
+                date: null,
+                time: null,
+                patientName: '',
+                phone: '',
+                symptoms: ''
+            };
+            selectedDoctor = null;
+            selectedDate = null;
+            selectedTime = null;
+            currentMonth = new Date();
+
             document.getElementById('portalPatientName').value = '';
             document.getElementById('portalPatientPhone').value = '';
             document.getElementById('portalPatientSymptoms').value = '';
+            document.getElementById('timeSlotsSection').style.display = 'none';
+            document.querySelectorAll('.doctor-card').forEach(card => {
+                card.style.borderColor = '';
+                card.style.background = '';
+            });
+            document.querySelectorAll('.calendar-day').forEach(day => day.classList.remove('selected'));
             goToStep(1);
         }
 
-        // ========== CLINIC CLINICAL OPERATIONS ==========
-        function viewPatientDetails(patientId) {
-            const patient = DBManager.getPatients().find(p => p.id === patientId);
-            currentPatient = patient;
-            if (!patient) return;
-
-            let html = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                <div><p style="color:var(--text-tertiary); font-size:0.85rem;">الاسم</p><p style="font-weight:600;">${patient.name}</p></div>
-                <div><p style="color:var(--text-tertiary); font-size:0.85rem;">رقم الهوية</p><p style="font-weight:600;">${patient.idNumber}</p></div>
-                <div><p style="color:var(--text-tertiary); font-size:0.85rem;">الهاتف</p><p style="font-weight:600;">${patient.phone} <button class="whatsapp-btn" onclick="sendWhatsAppReminder('${patient.name}')">💬</button></p></div>
-                <div><p style="color:var(--text-tertiary); font-size:0.85rem;">البريد</p><p style="font-weight:600;">${patient.email}</p></div>
-            </div>`;
-            
-            if (patient.visits.length > 0) {
-                html += `<div style="padding-top:1.5rem; border-top:1.5px solid var(--border);"><h4>📋 الزيارات السابقة</h4>`;
-                patient.visits.forEach(v => {
-                    html += `<div style="padding:0.75rem; background:var(--bg-secondary); border-radius:8px; border-right:3px solid var(--primary); margin-top:8px;"><p style="font-weight:600;">${v.date} | ${v.doctor}</p><p>📝 ${v.diagnosis}</p><p style="color:var(--text-tertiary); font-size:0.85rem;">💊 ${v.medicines}</p></div>`;
-                });
-                html += `</div>`;
-            }
-            document.getElementById('patientDetailContent').innerHTML = html;
-            openModal('patientDetailModal');
+        // ========== SICK LEAVE OPERATIONS SYSTEM ==========
+        function openSickLeaveModal(patientName, doctorName) {
+            document.getElementById('slPatientName').value = patientName;
+            document.getElementById('slDoctorName').value = doctorName;
+            document.getElementById('slReason').value = '';
+            document.getElementById('slDuration').value = '24 ساعة (يوم واحد)';
+            openModal('sickLeaveModal');
         }
 
-        function openPrescriptionModal() {
-            if (!currentPatient) return;
-            document.getElementById('prescriptionPatientName').textContent = currentPatient.name;
-            document.getElementById('prescriptionDiagnosis').textContent = 'استشارة عامة';
-            document.getElementById('prescriptionSymptoms').textContent = 'متابعة وفحص عام للعلامات الحيوية';
-            document.getElementById('prescriptionDate').textContent = '2026/05/19';
-            document.getElementById('prescriptionMedicines').innerHTML = `<div class="prescription-item">• باراسيتامول 500 ملغ</div>`;
-            openModal('prescriptionModal');
-        }
-
-        function applyTemplate(type) {
-            const t = {
-                flu: { d: 'إنفلونزا موسمية', s: 'ارتفاع درجة الحرارة وسعال', m: 'باراسيتامول 500 ملغ - 3 مرات يومياً' },
-                infection: { d: 'التهاب بكتيري', s: 'احمرار وتورم شديد', m: 'أموكسيسيلين 500 ملغ - 3 مرات يومياً' },
-                allergy: { d: 'حساسية موسمية', s: 'عطس متكرر وحكة عيون', m: 'سيتيريزين 10 ملغ - مرة يومياً' }
-            }[type];
-            document.getElementById('diagnosisField').value = t.d;
-            document.getElementById('symptomsField').value = t.s;
-            document.getElementById('medicinesField').value = t.m;
-            showToast('✨ تم تطبيق القالب بنجاح', 'success');
-        }
-
-        function submitDiagnosis(e) { e.preventDefault(); closeModal('diagnosisModal'); showToast('✓ تم حفظ التشخيص بنجاح', 'success'); }
-        function openAddAppointment() { showToast('📅 فتح شاشة إنشاء موعد جديد', 'warning'); }
-        function openAddInvoice() { showToast('💳 فتح شاشة إنشاء فاتورة جديدة', 'warning'); }
-        function downloadPrescription() { showToast('✓ تم تحميل الروشتة بنجاح', 'success'); }
-        function sendWhatsAppReminder(name) { showToast('✓ تم إرسال تذكير واتساب لـ ' + name, 'success'); }
-        function editPatient() { showToast('📝 تم فتح شاشة التعديل', 'warning'); }
-
-        let currentQueueIndex = 0;
-        function callNextPatient() {
-            const appointments = DBManager.getAppointments().filter(a => a.status === 'انتظار');
-            if (appointments.length > currentQueueIndex) {
-                showToast('📢 استدعاء: ' + appointments[currentQueueIndex].patientName, 'success');
-                currentQueueIndex = (currentQueueIndex + 1) % appointments.length;
-            } else {
-                showToast('ℹ️ لا يوجد مراجعين في الانتظار', 'info');
-            }
-        }
-
-        function submitNewPatient(e) {
+        function generateSickLeave(e) {
             e.preventDefault();
-            const inputs = e.target.querySelectorAll('input, select, textarea');
-            const p = { name: inputs[0].value, idNumber: inputs[1].value, phone: '+962' + inputs[2].value, email: 'patient@email.com', dob: '1990/01/01', blood: 'O+', insurance: inputs[3].value, medicalHistory: inputs[4].value, visits: [] };
-            DBManager.addPatient(p);
-            closeModal('newPatientModal');
-            renderPatients();
-            e.target.reset();
-            showToast('✓ تم إضافة المريض بنجاح', 'success');
+            const patientName = document.getElementById('slPatientName').value;
+            const doctorName = document.getElementById('slDoctorName').value;
+            const duration = document.getElementById('slDuration').value;
+            const reason = document.getElementById('slReason').value;
+            const currentDateStr = new Date().toLocaleDateString('ar-JO', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            document.getElementById('printSlPatient').textContent = patientName;
+            document.getElementById('printSlReason').textContent = reason;
+            document.getElementById('printSlDuration').textContent = duration;
+            document.getElementById('printSlDate').textContent = currentDateStr;
+            document.getElementById('printSlStampDate').textContent = new Date().toLocaleDateString('en-US') + ' ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('printSlDocName').textContent = doctorName;
+
+            closeModal('sickLeaveModal');
+            openModal('sickLeavePrintModal');
+            showToast('✓ تم توليد التقرير الطبي الرقمي بنجاح', 'success');
         }
 
-        // ========== MODAL UTILITIES ==========
-        function openModal(id) { const m = document.getElementById(id); if (m) m.classList.add('show'); }
-        function closeModal(id) { const m = document.getElementById(id); if (m) m.classList.remove('show'); }
-        document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', (e) => { if (e.target === m) m.classList.remove('show'); }));
-
-        function showToast(msg, type = 'success') {
-            const t = document.createElement('div');
-            t.className = `toast ${type}`; t.innerHTML = msg; document.body.appendChild(t);
-            setTimeout(() => t.remove(), 3000);
+        function printSickLeave() {
+            const printContent = document.getElementById('sickLeavePrintArea').innerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = `
+                <div dir="rtl" style="padding: 40px; background: white;">
+                    ${printContent}
+                </div>
+            `;
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload();
         }
 
+        function submitAppointment() {
+            if (selectedDoctor && selectedDate && selectedTime) {
+                showToast('✓ تم حجز الموعد بنجاح', 'success');
+                cancelAppointmentForm();
+            } else {
+                showToast('❌ يرجى اختيار طبيب وتاريخ ووقت', 'error');
+            }
+        }
+
+        function cancelAppointmentForm() {
+            document.getElementById('appointmentForm').style.display = 'none';
+            selectedDoctor = null;
+            selectedDate = null;
+            selectedTime = null;
+            document.getElementById('timeSlots').style.display = 'none';
+        }
+
+   // الانتقال للشهر السابق وإعادة رسم التقويم
+function prevMonth() {
+    currentMonth.setMonth(currentMonth.getMonth() - 1);
+    renderCalendar();
+    // إخفاء قسم الأوقات مؤقتاً لحين اختيار يوم في الشهر الجديد
+    document.getElementById('timeSlotsSection').style.display = 'none';
+}
+
+       // الانتقال للشهر التالي وإعادة رسم التقويم
+function nextMonth() {
+    currentMonth.setMonth(currentMonth.getMonth() + 1);
+    renderCalendar();
+    // إخفاء قسم الأوقات مؤقتاً لحين اختيار يوم في الشهر الجديد
+    document.getElementById('timeSlotsSection').style.display = 'none'; 
+}
+        // ========== MODALS ==========
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+
+        // ========== NOTIFICATIONS ==========
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 3000);
+        }
+
+        // ========== LOGOUT ==========
         function logout() {
             localStorage.removeItem('isLoggedIn');
             document.getElementById('mainApp').classList.add('hidden');
             document.getElementById('authPage').classList.remove('hidden');
+            document.getElementById('email').value = 'admin@clinic.com';
+            document.getElementById('password').value = '123456';
         }
     </script>
 </body>
