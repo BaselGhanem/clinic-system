@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Pro - نظام إدارة العيادات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-dark: #0d5c52;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f97316;
+            
+            /* Light Mode */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 10px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        html[data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border: #334155;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Poppins', 'Almarai', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        html[dir="ltr"] body {
+            font-family: 'Poppins', 'DM Sans', sans-serif;
+        }
+
+        html[dir="ltr"] .arabic-text { display: none; }
+        html[dir="rtl"] .english-text { display: none; }
+
+        /* TYPOGRAPHY */
+        h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; }
+        h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; }
+        h3 { font-size: 1.5rem; font-weight: 600; }
+        h4 { font-size: 1.125rem; font-weight: 600; }
+        p { color: var(--text-secondary); }
+        
+        .number, .currency { font-family: 'Poppins', sans-serif; font-weight: 600; }
+
+        /* AUTH PAGE */
+        .auth-container {
+            display: flex;
+            height: 100vh;
+            background: var(--bg-primary);
+        }
+
+        .auth-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: none;
+        }
+
+        .auth-left.show { display: flex; }
+
+        .auth-left-content {
+            max-width: 500px;
+            animation: slideInLeft 0.6s ease;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .auth-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            animation: slideInRight 0.6s ease;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .auth-form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin: 0;
+        }
+
+        .auth-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-tertiary);
+            margin-bottom: 2rem;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+        }
+
+        /* HINT BOX */
+        .hint-box {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(15, 118, 110, 0.04) 100%);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .hint-label {
+            font-weight: 600;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: 0 8px 16px rgba(20, 184, 166, 0.3);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(20, 184, 166, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary-light);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+
+        .theme-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-btn.active {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        /* LANGUAGE TOGGLE */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1.5px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-color: var(--primary-light);
+        }
+
+        /* DASHBOARD */
+        .dashboard-container {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            background: var(--bg-secondary);
+        }
+
+        .dashboard-container.show {
+            display: flex;
+        }
+
+        .top-bar {
+            background: var(--bg-primary);
+            border-bottom: 1.5px solid var(--border);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .top-bar-left h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--bg-primary);
+            border-right: 1.5px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 1.5rem 0;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+            margin: 0.25rem 0;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-light);
+        }
+
+        .nav-item.active {
+            background: rgba(20, 184, 166, 0.1);
+            color: var(--primary-light);
+            border-left-color: var(--primary-light);
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* TABLE */
+        .card {
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1.5px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        thead {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(20, 184, 166, 0.04) 100%);
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        th {
+            padding: 1.25rem;
+            text-align: right;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-secondary);
+            cursor: pointer;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        .badge-info {
+            background: rgba(20, 184, 166, 0.15);
+            color: var(--primary-light);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1.5px solid var(--border);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        /* SEARCH */
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.875rem 1.25rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+            }
+
+            .auth-left {
+                display: none !important;
+            }
+
+            .auth-right {
+                min-height: 100vh;
+                justify-content: center;
+            }
+
+            .auth-form {
+                max-width: 100%;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1.5px solid var(--border);
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding: 1rem 0;
+                max-height: 60px;
+            }
+
+            .nav-item {
+                padding: 0.75rem 1rem;
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .nav-item.active {
+                border-left: none;
+                border-bottom-color: var(--primary-light);
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* QUEUE ITEMS */
+        .queue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .queue-item {
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .queue-item.calling {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.08);
+            animation: pulse 1.5s infinite;
+        }
+
+        .queue-number {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .queue-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .queue-doctor {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+    </style>
+</head>
+<body>
+    <!-- THEME TOGGLE -->
+    <div class="theme-toggle">
+        <button class="theme-btn active" id="lightTheme" title="Light Mode">☀️</button>
+        <button class="theme-btn" id="darkTheme" title="Dark Mode">🌙</button>
+    </div>
+
+    <!-- LANGUAGE TOGGLE -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" id="arLang">العربية</button>
+        <button class="lang-btn" id="enLang">English</button>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="authPage" class="auth-container">
+        <div class="auth-left show">
+            <div class="auth-left-content">
+                <h1 style="margin-bottom: 1rem;">💊 ClinicPro</h1>
+                <h3 style="margin-bottom: 1rem; color: rgba(255,255,255,0.9);">
+                    <span class="arabic-text">نظام إدارة العيادات الحديث</span>
+                    <span class="english-text">Modern Clinic Management</span>
+                </h3>
+                <p style="color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.8;">
+                    <span class="arabic-text">إدارة كاملة وشاملة للمرضى والمواعيد والفواتير، مع واجهة استخدام بسيطة وعملية.</span>
+                    <span class="english-text">Complete management of patients, appointments, and billing with an intuitive interface.</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-form">
+                <div class="logo">
+                    <div class="logo-icon">🏥</div>
+                    <div class="logo-text">
+                        <h1>ClinicPro</h1>
+                        <p><span class="arabic-text">نظام إدارة العيادة</span><span class="english-text">Clinic System</span></p>
+                    </div>
+                </div>
+
+                <div class="auth-header">
+                    <div class="auth-title"><span class="arabic-text">مرحباً بك</span><span class="english-text">Welcome Back</span></div>
+                    <p class="auth-subtitle"><span class="arabic-text">سجل دخولك للوصول إلى نظام إدارة العيادة</span><span class="english-text">Sign in to access your clinic system</span></p>
+                </div>
+
+                <div class="hint-box">
+                    <span class="hint-label">💡 <span class="arabic-text">تجربة تجريبية</span><span class="english-text">Demo Credentials</span></span>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="arabic-text">البريد: admin@clinic.com | كلمة المرور: 123456</span>
+                        <span class="english-text">Email: admin@clinic.com | Password: 123456</span>
+                    </div>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label><span class="arabic-text">البريد الإلكتروني</span><span class="english-text">Email</span></label>
+                        <input type="email" id="email" value="admin@clinic.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><span class="arabic-text">كلمة المرور</span><span class="english-text">Password</span></label>
+                        <input type="password" id="password" value="123456" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span class="arabic-text">تسجيل الدخول</span>
+                        <span class="english-text">Sign In</span>
+                        →
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboardPage" class="dashboard-container">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <h2><span class="arabic-text" id="pageTitle">لوحة التحكم</span><span class="english-text" id="pageTitle">Dashboard</span></h2>
+            </div>
+            <div class="top-bar-right">
+                <button class="btn btn-primary" id="newPatientBtn" style="width: auto;">
+                    <span>➕</span>
+                    <span class="arabic-text">مريض جديد</span>
+                    <span class="english-text">New Patient</span>
+                </button>
+                <div class="user-profile">
+                    <div class="user-avatar">د</div>
+                    <div>
+                        <div class="user-name"><span class="arabic-text">د. أحمد محمد</span><span class="english-text">Dr. Ahmed Mohamed</span></div>
+                        <div class="user-role"><span class="arabic-text">مدير العيادة</span><span class="english-text">Clinic Manager</span></div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-small" onclick="logout()" style="width: auto;">
+                    <span class="arabic-text">تسجيل الخروج</span>
+                    <span class="english-text">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <a class="nav-item active" onclick="showPage('dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span class="arabic-text">لوحة التحكم</span>
+                    <span class="english-text">Dashboard</span>
+                </a>
+                <a class="nav-item" onclick="showPage('patients')">
+                    <span class="nav-icon">👥</span>
+                    <span class="arabic-text">المرضى</span>
+                    <span class="english-text">Patients</span>
+                </a>
+                <a class="nav-item" onclick="showPage('appointments')">
+                    <span class="nav-icon">📅</span>
+                    <span class="arabic-text">المواعيد</span>
+                    <span class="english-text">Appointments</span>
+                </a>
+                <a class="nav-item" onclick="showPage('billing')">
+                    <span class="nav-icon">💳</span>
+                    <span class="arabic-text">الفوترة</span>
+                    <span class="english-text">Billing</span>
+                </a>
+                <a class="nav-item" onclick="showPage('queue')">
+                    <span class="nav-icon">🔔</span>
+                    <span class="arabic-text">الانتظار</span>
+                    <span class="english-text">Queue</span>
+                </a>
+                <a class="nav-item" onclick="showPage('reports')">
+                    <span class="nav-icon">📈</span>
+                    <span class="arabic-text">التقارير</span>
+                    <span class="english-text">Reports</span>
+                </a>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content-area">
+                <!-- DASHBOARD PAGE -->
+                <div id="dashboard" class="page active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-label"><span class="arabic-text">المرضى اليوم</span><span class="english-text">Today's Patients</span></div>
+                            <div class="stat-value number">24</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-label"><span class="arabic-text">مواعيد مكتملة</span><span class="english-text">Completed</span></div>
+                            <div class="stat-value number">18</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏳</div>
+                            <div class="stat-label"><span class="arabic-text">في الانتظار</span><span class="english-text">Waiting</span></div>
+                            <div class="stat-value number">6</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-label"><span class="arabic-text">الإيرادات</span><span class="english-text">Revenue</span></div>
+                            <div class="stat-value currency">12,450</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><span class="arabic-text">آخر المواعيد</span><span class="english-text">Recent Appointments</span></div>
+                            <span class="badge badge-info"><span class="arabic-text">اليوم</span><span class="english-text">Today</span></span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><span class="arabic-text">الوقت</span><span class="english-text">Time</span></th>
+                                        <th><span class="arabic-text">المريض</span><span class="english-text">Patient</span></th>
+                                        <th><span class="arabic-text">الطبيب</span><span class="english-text">Doctor</span></th>
+                                        <th><span class="arabic-text">الحالة</span><span class="english-text">Status</span></th>
+                                        <th><span class="arabic-text">الإجراء</span><span class="english-text">Action</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="number">14:00</td>
+                                        <td>علي سالم</td>
+                                        <td>د. فاطمة</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">مكتمل</span><span class="english-text">Done</span></span></td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="viewPatientDetails('Ali Salim')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="number">14:30</td>
+                                        <td>سارة أحمد</td>
+                                        <td>د. محمد</td>
+                                        <td><span class="badge badge-warning"><span class="arabic-text">جاري</span><span class="english-text">In Progress</span></span></td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="viewPatientDetails('Sarah Ahmed')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="number">15:00</td>
+                                        <td>خالد عمر</td>
+                                        <td>د. فاطمة</td>
+                                        <td><span class="badge badge-info"><span class="arabic-text">انتظار</span><span class="english-text">Waiting</span></span></td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="viewPatientDetails('Khaled Omar')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PATIENTS PAGE -->
+                <div id="patients" class="page">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" placeholder="ابحث عن مريض... / Search patient...">
+                        <select class="search-input" style="flex: 0 1 150px;">
+                            <option><span class="arabic-text">جميع الأنواع</span><span class="english-text">All Types</span></option>
+                            <option><span class="arabic-text">تأمين</span><span class="english-text">Insurance</span></option>
+                            <option><span class="arabic-text">كاش</span><span class="english-text">Cash</span></option>
+                        </select>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><span class="arabic-text">قائمة المرضى</span><span class="english-text">Patients List</span></div>
+                            <span class="badge badge-info"><span class="number">47</span> <span class="arabic-text">مريض</span><span class="english-text">patients</span></span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><span class="arabic-text">الاسم</span><span class="english-text">Name</span></th>
+                                        <th><span class="arabic-text">رقم الهاتف</span><span class="english-text">Phone</span></th>
+                                        <th><span class="arabic-text">نوع الدفع</span><span class="english-text">Payment</span></th>
+                                        <th><span class="arabic-text">آخر زيارة</span><span class="english-text">Last Visit</span></th>
+                                        <th><span class="arabic-text">الإجراء</span><span class="english-text">Action</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onclick="viewPatientDetails('Ali Salim')">
+                                        <td>علي سالم محمود</td>
+                                        <td class="number">+962791234567</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">كاش</span><span class="english-text">Cash</span></span></td>
+                                        <td>2024/01/15</td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails('Ali Salim')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                    <tr onclick="viewPatientDetails('Sarah Ahmed')">
+                                        <td>سارة أحمد علي</td>
+                                        <td class="number">+962795555555</td>
+                                        <td><span class="badge badge-warning"><span class="arabic-text">تأمين</span><span class="english-text">Insurance</span></span></td>
+                                        <td>2024/01/18</td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails('Sarah Ahmed')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                    <tr onclick="viewPatientDetails('Khaled Omar')">
+                                        <td>خالد عمر حسن</td>
+                                        <td class="number">+962796666666</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">كاش</span><span class="english-text">Cash</span></span></td>
+                                        <td>2024/01/10</td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails('Khaled Omar')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                    <tr onclick="viewPatientDetails('Fatima Ibrahim')">
+                                        <td>فاطمة إبراهيم أحمد</td>
+                                        <td class="number">+962788888888</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">كاش</span><span class="english-text">Cash</span></span></td>
+                                        <td>2024/01/12</td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails('Fatima Ibrahim')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                    <tr onclick="viewPatientDetails('Muhammad Hassan')">
+                                        <td>محمد حسن علي</td>
+                                        <td class="number">+962799999999</td>
+                                        <td><span class="badge badge-warning"><span class="arabic-text">تأمين</span><span class="english-text">Insurance</span></span></td>
+                                        <td>2024/01/08</td>
+                                        <td><button class="btn btn-secondary btn-small" onclick="event.stopPropagation(); viewPatientDetails('Muhammad Hassan')"><span class="arabic-text">عرض</span><span class="english-text">View</span></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- APPOINTMENTS PAGE -->
+                <div id="appointments" class="page">
+                    <div class="search-bar">
+                        <input type="date" class="search-input" value="2024-01-20">
+                        <select class="search-input" style="flex: 0 1 150px;">
+                            <option><span class="arabic-text">جميع الأطباء</span><span class="english-text">All Doctors</span></option>
+                            <option><span class="arabic-text">د. فاطمة</span><span class="english-text">Dr. Fatima</span></option>
+                            <option><span class="arabic-text">د. محمد</span><span class="english-text">Dr. Mohamed</span></option>
+                        </select>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><span class="arabic-text">جدول المواعيد</span><span class="english-text">Appointments Schedule</span></div>
+                            <button class="btn btn-primary btn-small" style="width: auto;" onclick="openNewAppointment()"><span class="arabic-text">+ موعد جديد</span><span class="english-text">+ New</span></button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><span class="arabic-text">الوقت</span><span class="english-text">Time</span></th>
+                                        <th><span class="arabic-text">المريض</span><span class="english-text">Patient</span></th>
+                                        <th><span class="arabic-text">الطبيب</span><span class="english-text">Doctor</span></th>
+                                        <th><span class="arabic-text">المشكلة</span><span class="english-text">Issue</span></th>
+                                        <th><span class="arabic-text">الحالة</span><span class="english-text">Status</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onclick="openAppointmentDetail('08:00', 'Ali', 'Dr. Fatima', 'Checkup')">
+                                        <td class="number">08:00</td>
+                                        <td>علي سالم</td>
+                                        <td>د. فاطمة</td>
+                                        <td><span class="arabic-text">فحص دوري</span><span class="english-text">Checkup</span></td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">مكتمل</span><span class="english-text">Done</span></span></td>
+                                    </tr>
+                                    <tr onclick="openAppointmentDetail('09:00', 'Sarah', 'Dr. Mohamed', 'Back Pain')">
+                                        <td class="number">09:00</td>
+                                        <td>سارة أحمد</td>
+                                        <td>د. محمد</td>
+                                        <td><span class="arabic-text">آلام الظهر</span><span class="english-text">Back Pain</span></td>
+                                        <td><span class="badge badge-warning"><span class="arabic-text">جاري</span><span class="english-text">In Progress</span></span></td>
+                                    </tr>
+                                    <tr onclick="openAppointmentDetail('09:30', 'Khaled', 'Dr. Fatima', 'Follow-up')">
+                                        <td class="number">09:30</td>
+                                        <td>خالد عمر</td>
+                                        <td>د. فاطمة</td>
+                                        <td><span class="arabic-text">متابعة</span><span class="english-text">Follow-up</span></td>
+                                        <td><span class="badge badge-info"><span class="arabic-text">انتظار</span><span class="english-text">Waiting</span></span></td>
+                                    </tr>
+                                    <tr onclick="openAppointmentDetail('10:00', 'Fatima', 'Dr. Mohamed', 'Consultation')">
+                                        <td class="number">10:00</td>
+                                        <td>فاطمة إبراهيم</td>
+                                        <td>د. محمد</td>
+                                        <td><span class="arabic-text">استشارة</span><span class="english-text">Consultation</span></td>
+                                        <td><span class="badge badge-info"><span class="arabic-text">انتظار</span><span class="english-text">Waiting</span></span></td>
+                                    </tr>
+                                    <tr onclick="openAppointmentDetail('10:30', '-', 'Dr. Fatima', '-')">
+                                        <td class="number">10:30</td>
+                                        <td>-</td>
+                                        <td>د. فاطمة</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-danger"><span class="arabic-text">متاح</span><span class="english-text">Available</span></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BILLING PAGE -->
+                <div id="billing" class="page">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-label"><span class="arabic-text">الإجمالي</span><span class="english-text">Total</span></div>
+                            <div class="stat-value currency">12,500</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💵</div>
+                            <div class="stat-label"><span class="arabic-text">كاش</span><span class="english-text">Cash</span></div>
+                            <div class="stat-value currency">8,300</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💳</div>
+                            <div class="stat-label"><span class="arabic-text">بطاقة</span><span class="english-text">Card</span></div>
+                            <div class="stat-value currency">4,200</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><span class="arabic-text">الفواتير</span><span class="english-text">Invoices</span></div>
+                            <button class="btn btn-primary btn-small" style="width: auto;" onclick="openNewInvoice()"><span class="arabic-text">+ فاتورة جديدة</span><span class="english-text">+ New Invoice</span></button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><span class="arabic-text">رقم</span><span class="english-text">ID</span></th>
+                                        <th><span class="arabic-text">المريض</span><span class="english-text">Patient</span></th>
+                                        <th><span class="arabic-text">المبلغ</span><span class="english-text">Amount</span></th>
+                                        <th><span class="arabic-text">الطريقة</span><span class="english-text">Method</span></th>
+                                        <th><span class="arabic-text">التاريخ</span><span class="english-text">Date</span></th>
+                                        <th><span class="arabic-text">الحالة</span><span class="english-text">Status</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onclick="openInvoiceDetail('#INV001')">
+                                        <td>#INV001</td>
+                                        <td>علي سالم</td>
+                                        <td class="currency">450</td>
+                                        <td>💵 <span class="arabic-text">كاش</span><span class="english-text">Cash</span></td>
+                                        <td>2024/01/20</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">مدفوع</span><span class="english-text">Paid</span></span></td>
+                                    </tr>
+                                    <tr onclick="openInvoiceDetail('#INV002')">
+                                        <td>#INV002</td>
+                                        <td>سارة أحمد</td>
+                                        <td class="currency">650</td>
+                                        <td>💳 <span class="arabic-text">بطاقة</span><span class="english-text">Card</span></td>
+                                        <td>2024/01/20</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">مدفوع</span><span class="english-text">Paid</span></span></td>
+                                    </tr>
+                                    <tr onclick="openInvoiceDetail('#INV003')">
+                                        <td>#INV003</td>
+                                        <td>خالد عمر</td>
+                                        <td class="currency">500</td>
+                                        <td>🏥 <span class="arabic-text">تأمين</span><span class="english-text">Insurance</span></td>
+                                        <td>2024/01/20</td>
+                                        <td><span class="badge badge-warning"><span class="arabic-text">قيد الانتظار</span><span class="english-text">Pending</span></span></td>
+                                    </tr>
+                                    <tr onclick="openInvoiceDetail('#INV004')">
+                                        <td>#INV004</td>
+                                        <td>فاطمة إبراهيم</td>
+                                        <td class="currency">320</td>
+                                        <td>💵 <span class="arabic-text">كاش</span><span class="english-text">Cash</span></td>
+                                        <td>2024/01/19</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">مدفوع</span><span class="english-text">Paid</span></span></td>
+                                    </tr>
+                                    <tr onclick="openInvoiceDetail('#INV005')">
+                                        <td>#INV005</td>
+                                        <td>محمد حسن</td>
+                                        <td class="currency">1050</td>
+                                        <td>💳 <span class="arabic-text">بطاقة</span><span class="english-text">Card</span></td>
+                                        <td>2024/01/19</td>
+                                        <td><span class="badge badge-success"><span class="arabic-text">مدفوع</span><span class="english-text">Paid</span></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUEUE PAGE -->
+                <div id="queue" class="page">
+                    <div style="margin-bottom: 2rem;">
+                        <h2 style="margin-bottom: 0.5rem;"><span class="arabic-text">طابور الانتظار</span><span class="english-text">Waiting Queue</span></h2>
+                        <p style="color: var(--text-tertiary);"><span class="arabic-text">عدد المنتظرين:</span><span class="english-text">Waiting:</span> <span class="number" style="color: var(--primary-light); font-size: 1.5rem;">8</span></p>
+                    </div>
+
+                    <div class="queue-grid">
+                        <div class="queue-item calling">
+                            <div class="queue-number number">5</div>
+                            <div class="queue-name">علي سالم</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. فاطمة</span><span class="english-text">With Dr. Fatima</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">6</div>
+                            <div class="queue-name">سارة أحمد</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. محمد</span><span class="english-text">With Dr. Mohamed</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">7</div>
+                            <div class="queue-name">خالد عمر</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. فاطمة</span><span class="english-text">With Dr. Fatima</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">8</div>
+                            <div class="queue-name">فاطمة إبراهيم</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. محمد</span><span class="english-text">With Dr. Mohamed</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">9</div>
+                            <div class="queue-name">محمد حسن</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. فاطمة</span><span class="english-text">With Dr. Fatima</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">10</div>
+                            <div class="queue-name">ليلى أحمد</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. محمد</span><span class="english-text">With Dr. Mohamed</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">11</div>
+                            <div class="queue-name">أحمد علي</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. فاطمة</span><span class="english-text">With Dr. Fatima</span></div>
+                        </div>
+                        <div class="queue-item">
+                            <div class="queue-number number">12</div>
+                            <div class="queue-name">مريم محمود</div>
+                            <div class="queue-doctor"><span class="arabic-text">عند د. محمد</span><span class="english-text">With Dr. Mohamed</span></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2.5rem;">
+                        <button class="btn btn-primary" onclick="callNextPatient()" style="width: 100%; padding: 1.25rem;">
+                            <span>📢</span>
+                            <span class="arabic-text">استدعاء المريض التالي</span>
+                            <span class="english-text">Call Next Patient</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- REPORTS PAGE -->
+                <div id="reports" class="page">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-label"><span class="arabic-text">إجمالي الإيرادات</span><span class="english-text">Total Revenue</span></div>
+                            <div class="stat-value currency">125,450</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-label"><span class="arabic-text">إجمالي المرضى</span><span class="english-text">Total Patients</span></div>
+                            <div class="stat-value number">847</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-label"><span class="arabic-text">إجمالي المواعيد</span><span class="english-text">Total Appointments</span></div>
+                            <div class="stat-value number">2,134</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-label"><span class="arabic-text">رضا المرضى</span><span class="english-text">Patient Satisfaction</span></div>
+                            <div class="stat-value number">4.8/5</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><span class="arabic-text">أكثر الأطباء حجزاً</span><span class="english-text">Top Doctors</span></div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><span class="arabic-text">الطبيب</span><span class="english-text">Doctor</span></th>
+                                        <th><span class="arabic-text">عدد المواعيد</span><span class="english-text">Appointments</span></th>
+                                        <th><span class="arabic-text">الإيرادات</span><span class="english-text">Revenue</span></th>
+                                        <th><span class="arabic-text">معدل الرضا</span><span class="english-text">Rating</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>د. فاطمة السالم</td>
+                                        <td class="number">325</td>
+                                        <td class="currency">45,200</td>
+                                        <td>4.9/5 ⭐</td>
+                                    </tr>
+                                    <tr>
+                                        <td>د. محمد أحمد</td>
+                                        <td class="number">298</td>
+                                        <td class="currency">41,500</td>
+                                        <td>4.7/5 ⭐</td>
+                                    </tr>
+                                    <tr>
+                                        <td>د. علي حسن</td>
+                                        <td class="number">276</td>
+                                        <td class="currency">38,750</td>
+                                        <td>4.6/5 ⭐</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <!-- PATIENT DETAILS MODAL -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="margin: 0;"><span class="arabic-text">بيانات المريض</span><span class="english-text">Patient Details</span></h2>
+                <button class="modal-close" onclick="closeModal('patientModal')">✕</button>
+            </div>
+            <div id="patientModalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW PATIENT MODAL -->
+    <div id="newPatientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="margin: 0;"><span class="arabic-text">تسجيل مريض جديد</span><span class="english-text">New Patient</span></h2>
+                <button class="modal-close" onclick="closeModal('newPatientModal')">✕</button>
+            </div>
+            <form id="newPatientForm" onsubmit="submitNewPatient(event)">
+                <div class="form-group">
+                    <label><span class="arabic-text">الاسم الكامل</span><span class="english-text">Full Name</span></label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label><span class="arabic-text">رقم الهوية</span><span class="english-text">ID Number</span></label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label><span class="arabic-text">رقم الجوال</span><span class="english-text">Phone</span></label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label><span class="arabic-text">نوع الدفع</span><span class="english-text">Payment Type</span></label>
+                    <select required>
+                        <option><span class="arabic-text">اختر...</span><span class="english-text">Select...</span></option>
+                        <option><span class="arabic-text">كاش</span><span class="english-text">Cash</span></option>
+                        <option><span class="arabic-text">بطاقة</span><span class="english-text">Card</span></option>
+                        <option><span class="arabic-text">تأمين</span><span class="english-text">Insurance</span></option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary"><span class="arabic-text">إضافة المريض</span><span class="english-text">Add Patient</span></button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('newPatientModal')"><span class="arabic-text">إلغاء</span><span class="english-text">Cancel</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // THEME TOGGLE
+        const htmlElement = document.documentElement;
+        const lightThemeBtn = document.getElementById('lightTheme');
+        const darkThemeBtn = document.getElementById('darkTheme');
+
+        lightThemeBtn.addEventListener('click', () => {
+            htmlElement.removeAttribute('data-theme');
+            lightThemeBtn.classList.add('active');
+            darkThemeBtn.classList.remove('active');
+            localStorage.setItem('theme', 'light');
+        });
+
+        darkThemeBtn.addEventListener('click', () => {
+            htmlElement.setAttribute('data-theme', 'dark');
+            darkThemeBtn.classList.add('active');
+            lightThemeBtn.classList.remove('active');
+            localStorage.setItem('theme', 'dark');
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            htmlElement.setAttribute('data-theme', 'dark');
+            darkThemeBtn.classList.add('active');
+            lightThemeBtn.classList.remove('active');
+        }
+
+        // LANGUAGE TOGGLE
+        const arLang = document.getElementById('arLang');
+        const enLang = document.getElementById('enLang');
+
+        arLang.addEventListener('click', () => {
+            htmlElement.setAttribute('lang', 'ar');
+            htmlElement.setAttribute('dir', 'rtl');
+            arLang.classList.add('active');
+            enLang.classList.remove('active');
+            localStorage.setItem('lang', 'ar');
+        });
+
+        enLang.addEventListener('click', () => {
+            htmlElement.setAttribute('lang', 'en');
+            htmlElement.setAttribute('dir', 'ltr');
+            enLang.classList.add('active');
+            arLang.classList.remove('active');
+            localStorage.setItem('lang', 'en');
+        });
+
+        // Load saved language
+        const savedLang = localStorage.getItem('lang') || 'ar';
+        if (savedLang === 'en') {
+            htmlElement.setAttribute('lang', 'en');
+            htmlElement.setAttribute('dir', 'ltr');
+            enLang.classList.add('active');
+            arLang.classList.remove('active');
+        }
+
+        // LOGIN
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === 'admin@clinic.com' && password === '123456') {
+                document.getElementById('authPage').style.display = 'none';
+                document.getElementById('dashboardPage').classList.add('show');
+                localStorage.setItem('isLoggedIn', 'true');
+            } else {
+                alert(htmlElement.getAttribute('lang') === 'ar' ? 'بيانات دخول غير صحيحة' : 'Invalid credentials');
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            document.getElementById('authPage').style.display = 'none';
+            document.getElementById('dashboardPage').classList.add('show');
+        }
+
+        // NAVIGATION
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageName).classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        // MODALS
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // PATIENT DETAILS
+        const patientDetails = {
+            'Ali Salim': {
+                name: 'علي سالم محمود / Ali Salim',
+                id: '786543210',
+                phone: '+962791234567',
+                email: 'ali.salim@email.com',
+                dob: '1985/03/15',
+                blood: 'O+',
+                insurance: 'كاش / Cash',
+                medical: 'ارتفاع ضغط الدم / High Blood Pressure'
+            },
+            'Sarah Ahmed': {
+                name: 'سارة أحمد علي / Sarah Ahmed',
+                id: '654321098',
+                phone: '+962795555555',
+                email: 'sarah.ahmed@email.com',
+                dob: '1990/07/22',
+                blood: 'A+',
+                insurance: 'التأمين الوطني / National Insurance',
+                medical: 'السكري / Diabetes'
+            },
+            'Khaled Omar': {
+                name: 'خالد عمر حسن / Khaled Omar',
+                id: '123456789',
+                phone: '+962796666666',
+                email: 'khaled.omar@email.com',
+                dob: '1988/11/08',
+                blood: 'B+',
+                insurance: 'كاش / Cash',
+                medical: 'لا يوجد / None'
+            },
+            'Fatima Ibrahim': {
+                name: 'فاطمة إبراهيم أحمد / Fatima Ibrahim',
+                id: '987654321',
+                phone: '+962788888888',
+                email: 'fatima.ibrahim@email.com',
+                dob: '1992/05/30',
+                blood: 'AB+',
+                insurance: 'كاش / Cash',
+                medical: 'حساسية / Allergies'
+            },
+            'Muhammad Hassan': {
+                name: 'محمد حسن علي / Muhammad Hassan',
+                id: '456789123',
+                phone: '+962799999999',
+                email: 'muhammad.hassan@email.com',
+                dob: '1987/09/12',
+                blood: 'O-',
+                insurance: 'تكافل الوطنية / Takafol Insurance',
+                medical: 'الربو / Asthma'
+            }
+        };
+
+        function viewPatientDetails(patientName) {
+            const patient = patientDetails[patientName];
+            if (patient) {
+                const lang = htmlElement.getAttribute('lang') || 'ar';
+                const isArabic = lang === 'ar';
+                
+                let html = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'الاسم' : 'Name'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.name}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'رقم الهوية' : 'ID Number'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.id}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'الهاتف' : 'Phone'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.phone}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'البريد' : 'Email'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.email}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'تاريخ الميلاد' : 'Date of Birth'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.dob}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'فصيلة الدم' : 'Blood Type'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.blood}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'نوع الدفع' : 'Insurance'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.insurance}</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-tertiary); font-size: 0.85rem; margin-bottom: 0.25rem;">${isArabic ? 'الحالات الطبية' : 'Medical History'}</p>
+                            <p style="font-weight: 600; margin: 0;">${patient.medical}</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1.5px solid var(--border);">
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-primary btn-small" style="width: 100%; justify-content: center;" onclick="editPatient('${patientName}')">
+                                ✏️ ${isArabic ? 'تعديل' : 'Edit'}
+                            </button>
+                            <button class="btn btn-secondary btn-small" style="width: 100%; justify-content: center;" onclick="deletePatient('${patientName}')">
+                                🗑️ ${isArabic ? 'حذف' : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('patientModalBody').innerHTML = html;
+                openModal('patientModal');
+            }
+        }
+
+        function editPatient(name) {
+            alert((htmlElement.getAttribute('lang') === 'ar' ? 'تم فتح شاشة التعديل' : 'Edit form opened') + ' - ' + name);
+        }
+
+        function deletePatient(name) {
+            if (confirm(htmlElement.getAttribute('lang') === 'ar' ? 'هل أنت متأكد من حذف هذا المريض؟' : 'Are you sure?')) {
+                closeModal('patientModal');
+                alert(htmlElement.getAttribute('lang') === 'ar' ? 'تم حذف المريض' : 'Patient deleted');
+            }
+        }
+
+        // NEW PATIENT
+        document.getElementById('newPatientBtn').addEventListener('click', () => {
+            openModal('newPatientModal');
+        });
+
+        function submitNewPatient(e) {
+            e.preventDefault();
+            alert(htmlElement.getAttribute('lang') === 'ar' ? 'تم إضافة المريض بنجاح' : 'Patient added successfully');
+            closeModal('newPatientModal');
+            document.getElementById('newPatientForm').reset();
+        }
+
+        // APPOINTMENT DETAILS
+        function openAppointmentDetail(time, patient, doctor, issue) {
+            alert(`${time} - ${patient} - ${doctor} - ${issue}`);
+        }
+
+        function openNewAppointment() {
+            alert(htmlElement.getAttribute('lang') === 'ar' ? 'فتح شاشة إنشاء موعد جديد' : 'New appointment form opened');
+        }
+
+        // INVOICE DETAILS
+        function openInvoiceDetail(invoiceId) {
+            alert(`${invoiceId} - ${htmlElement.getAttribute('lang') === 'ar' ? 'تفاصيل الفاتورة' : 'Invoice Details'}`);
+        }
+
+        function openNewInvoice() {
+            alert(htmlElement.getAttribute('lang') === 'ar' ? 'فتح شاشة إنشاء فاتورة جديدة' : 'New invoice form opened');
+        }
+
+        // QUEUE
+        let currentQueueIndex = 0;
+        setInterval(() => {
+            document.querySelectorAll('.queue-item').forEach((item, i) => {
+                item.classList.toggle('calling', i === currentQueueIndex);
+            });
+            currentQueueIndex = (currentQueueIndex + 1) % document.querySelectorAll('.queue-item').length;
+        }, 3000);
+
+        function callNextPatient() {
+            alert(htmlElement.getAttribute('lang') === 'ar' ? '✓ تم استدعاء المريض التالي' : '✓ Next patient called');
+        }
+
+        // LOGOUT
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            document.getElementById('dashboardPage').classList.remove('show');
+            document.getElementById('authPage').style.display = 'flex';
+            document.getElementById('email').value = 'admin@clinic.com';
+            document.getElementById('password').value = '123456';
+        }
+
+        // CLOSE MODALS ON BACKGROUND CLICK
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
